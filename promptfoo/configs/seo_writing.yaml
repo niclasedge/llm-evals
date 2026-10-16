@@ -1,0 +1,301 @@
+# SEO Content Writing Evaluation
+description: "Evaluate models on writing high-quality, SEO-optimized content in markdown format"
+
+prompts:
+  - |
+    Write a professional, SEO-optimized article about "{{keyword}}" in markdown format.
+
+    Requirements:
+    - Length: Exactly 500 words
+    - Format: Markdown with proper headings (H1, H2, H3)
+    - Include: Introduction, main body with subheadings, conclusion
+    - SEO optimization: Use the keyword naturally 3-5 times
+    - Writing style: Professional, engaging, informative
+    - Target audience: {{audience}}
+    - Tone: {{tone}}
+
+    Structure your article with:
+    - # Main Title (H1) - should include the keyword
+    - ## Introduction
+    - ## Main sections (2-3 H2 sections with H3 subsections)
+    - ## Conclusion
+
+    Write naturally and provide value to the reader. Avoid keyword stuffing.
+
+# Sequential execution for Ollama models (prevents GPU overload)
+maxConcurrency: 1
+
+providers:
+  # Ollama local models - Large (8B+) - Best for creative writing
+  - id: ollama:qwen3:8b
+    label: "Qwen3 8B (Local)"
+    config:
+      temperature: 0.8  # Higher for creative writing
+
+  - id: ollama:deepseek-r1:8b
+    label: "DeepSeek R1 8B (Local)"
+    config:
+      temperature: 0.8
+
+  - id: ollama:phi4-reasoning:latest
+    label: "Phi-4 Reasoning (Local)"
+    config:
+      temperature: 0.8
+
+  - id: ollama:qwen2.5:7b
+    label: "Qwen2.5 7B (Local)"
+    config:
+      temperature: 0.8
+
+  - id: ollama:qwen2.5-coder:7b
+    label: "Qwen2.5 Coder 7B (Local)"
+    config:
+      temperature: 0.8
+
+  # Ollama local models - Very Large (20B+)
+  - id: ollama:gemma3:27b-it-qat
+    label: "Gemma3 27B QAT (Local)"
+    config:
+      temperature: 0.8
+
+  - id: ollama:gpt-oss:20b
+    label: "GPT-OSS 20B (Local)"
+    config:
+      temperature: 0.8
+
+  # Ollama local models - Medium
+  - id: ollama:gemma3:4b
+    label: "Gemma3 4B (Local)"
+    config:
+      temperature: 0.8
+
+  - id: ollama:qwen3:4b
+    label: "Qwen3 4B (Local)"
+    config:
+      temperature: 0.8
+
+  - id: ollama:llama3.2:3b
+    label: "Llama 3.2 3B (Local)"
+    config:
+      temperature: 0.8
+
+  # === OPENROUTER MODELS ===
+  # Note: Set OPENROUTER_API_KEY in .env file to use OpenRouter models
+
+  # Anthropic Claude - Excellent for writing
+  - id: openrouter:anthropic/claude-haiku-4.5
+    label: "Claude Haiku 4.5"
+    config:
+      temperature: 0.8
+      apiKeyEnvar: OPENROUTER_API_KEY
+  - id: openrouter:anthropic/claude-sonnet-4.5
+    label: "Claude Sonnet 4.5"
+    config:
+      temperature: 0.8
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Google Gemini Models
+  - id: openrouter:google/gemini-2.5-flash-lite
+    label: "Gemini 2.5 Flash Lite"
+    config:
+      temperature: 0.8
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.5-flash
+    label: "Gemini 2.5 Flash"
+    config:
+      temperature: 0.8
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.5-pro
+    label: "Gemini 2.5 Pro"
+    config:
+      temperature: 0.8
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # OpenAI GPT Models
+  - id: openrouter:openai/gpt-5-nano
+    label: "GPT-5 Nano"
+    config:
+      temperature: 0.8
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:openai/gpt-5-mini
+    label: "GPT-5 Mini"
+    config:
+      temperature: 0.8
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # === FREE OPENROUTER MODELS ===
+  # Meta Llama Free Models
+  - id: openrouter:meta-llama/llama-4-maverick:free
+    label: "Llama 4 Maverick (Free)"
+    config:
+      temperature: 0.8
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:meta-llama/llama-4-scout:free
+    label: "Llama 4 Scout (Free)"
+    config:
+      temperature: 0.8
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # DeepSeek Free Models
+  - id: openrouter:deepseek/deepseek-chat-v3-0324:free
+    label: "DeepSeek Chat v3 (Free)"
+    config:
+      temperature: 0.8
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Google Free Models
+  - id: openrouter:google/gemini-2.0-flash-exp:free
+    label: "Gemini 2.0 Flash Exp (Free)"
+    config:
+      temperature: 0.8
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemma-3-27b-it:free
+    label: "Gemma 3 27B IT (Free)"
+    config:
+      temperature: 0.8
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+tests:
+  # Test 1: Tech/Software Keyword
+  - vars:
+      keyword: "Cloud Computing"
+      audience: "IT professionals and business decision makers"
+      tone: "professional and authoritative"
+    assert:
+      # Check minimum word count (approximately 500 words = 2800-3500 characters)
+      - type: javascript
+        value: "output.split(/\\s+/).length >= 450 && output.split(/\\s+/).length <= 550"
+      # Check markdown H1 heading exists
+      - type: is-valid-openai-function-call
+        value:
+          type: object
+          properties:
+            has_h1:
+              type: boolean
+          required: [has_h1]
+      - type: regex
+        value: "^#\\s+.+"
+      # Check keyword appears multiple times
+      - type: javascript
+        value: "(output.match(/cloud computing/gi) || []).length >= 3"
+      # Check markdown structure (H2 headings)
+      - type: regex
+        value: "##\\s+.+"
+      # Quality check with LLM rubric
+      - type: llm-rubric
+        value: |
+          Evaluate the SEO article on these criteria:
+          1. Has proper markdown structure (H1, H2, H3 headings)
+          2. Contains 450-550 words
+          3. Uses the keyword "Cloud Computing" naturally 3-5 times
+          4. Has clear introduction, body sections, and conclusion
+          5. Professional and engaging writing style
+          6. Provides valuable information
+          Score should be 0.8 or higher for passing.
+
+  # Test 2: E-commerce Keyword
+  - vars:
+      keyword: "Online Shopping Benefits"
+      audience: "general consumers"
+      tone: "friendly and persuasive"
+    assert:
+      - type: javascript
+        value: "output.split(/\\s+/).length >= 450 && output.split(/\\s+/).length <= 550"
+      - type: regex
+        value: "^#\\s+.+"
+      - type: javascript
+        value: "(output.match(/online shopping/gi) || []).length >= 3"
+      - type: regex
+        value: "##\\s+.+"
+      - type: llm-rubric
+        value: |
+          Evaluate if the article:
+          1. Has proper markdown formatting
+          2. Is approximately 500 words
+          3. Uses "Online Shopping Benefits" keyword naturally
+          4. Has engaging, persuasive tone for consumers
+          5. Provides clear benefits and value propositions
+
+  # Test 3: Health & Wellness Keyword
+  - vars:
+      keyword: "Healthy Morning Routines"
+      audience: "health-conscious individuals"
+      tone: "motivational and informative"
+    assert:
+      - type: javascript
+        value: "output.split(/\\s+/).length >= 450 && output.split(/\\s+/).length <= 550"
+      - type: regex
+        value: "^#\\s+.+"
+      - type: javascript
+        value: "(output.match(/morning routine/gi) || []).length >= 3"
+      - type: contains-all
+        value: ["#", "##"]
+      - type: llm-rubric
+        value: |
+          Check if the article:
+          1. Uses markdown headings properly
+          2. Is around 500 words
+          3. Incorporates the keyword naturally
+          4. Has motivational and informative tone
+          5. Provides actionable tips
+
+  # Test 4: Finance Keyword
+  - vars:
+      keyword: "Personal Finance Management"
+      audience: "young professionals"
+      tone: "educational and practical"
+    assert:
+      - type: javascript
+        value: "output.split(/\\s+/).length >= 450 && output.split(/\\s+/).length <= 550"
+      - type: regex
+        value: "^#\\s+.+"
+      - type: javascript
+        value: "(output.match(/personal finance/gi) || []).length >= 3"
+      - type: regex
+        value: "##\\s+Introduction"
+      - type: regex
+        value: "##\\s+Conclusion"
+      - type: llm-rubric
+        value: |
+          Assess the article for:
+          1. Proper markdown structure with intro and conclusion
+          2. Word count near 500
+          3. Natural keyword integration
+          4. Educational and practical advice for young professionals
+          5. Clear, actionable financial tips
+
+  # Test 5: Travel Keyword
+  - vars:
+      keyword: "Budget Travel Tips"
+      audience: "adventure seekers and backpackers"
+      tone: "enthusiastic and helpful"
+    assert:
+      - type: javascript
+        value: "output.split(/\\s+/).length >= 450 && output.split(/\\s+/).length <= 550"
+      - type: regex
+        value: "^#\\s+.+"
+      - type: javascript
+        value: "(output.match(/budget travel/gi) || []).length >= 3"
+      - type: contains-all
+        value: ["#", "##", "travel", "budget"]
+      - type: llm-rubric
+        value: |
+          Evaluate for:
+          1. Markdown formatting with multiple section headings
+          2. Approximately 500 words
+          3. "Budget Travel Tips" used naturally throughout
+          4. Enthusiastic and helpful tone
+          5. Practical, money-saving travel advice
+
+outputPath: results/seo_writing_results.json
+
+# Default test options
+defaultTest:
+  options:
+    # Allow longer responses for 500-word articles
+    maxTokens: 1500

@@ -1,0 +1,37 @@
+scoring:
+  dimensions:
+    tool_selection:
+      weight: 0.30
+      description: "Accuracy of selecting the correct tools for the task"
+    parameter_accuracy:
+      weight: 0.25
+      description: "Correctness of parameters passed to tools"
+    execution_logic:
+      weight: 0.20
+      description: "Proper sequencing and logical flow of tool execution"
+    error_handling:
+      weight: 0.15
+      description: "Graceful handling of errors and edge cases"
+    response_quality:
+      weight: 0.10
+      description: "Overall coherence and helpfulness of the response"
+  
+  thresholds:
+    excellent: 0.90
+    good: 0.75
+    fair: 0.60
+    poor: 0.40
+  
+  algorithms:
+    tool_selection: "f1_score"
+    parameter_accuracy: "exact_match_with_tolerance"
+    execution_logic: "sequence_similarity"
+    error_handling: "graceful_degradation"
+    response_quality: "heuristic_quality_score"
+  
+  parameters:
+    numerical_tolerance: 0.001
+    string_case_sensitive: false
+    sequence_order_strict: true
+    timeout_seconds: 30
+    max_concurrent_tests: 3

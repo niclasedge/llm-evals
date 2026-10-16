@@ -1,0 +1,90 @@
+tool_call_tests:
+  name: "Complex Tool Call Scenarios"
+  version: "1.0"
+  description: "Advanced multi-tool and error handling scenarios"
+  
+  scenarios:
+    - name: "unit_conversion_calculation"
+      description: "Convert units then perform calculation"
+      prompt: "Convert 50 miles to kilometers, then calculate how long it takes to travel at 60 km/h"
+      expected_tools:
+        - tool_name: "unit_converter"
+          parameters:
+            value: 50
+            from_unit: "miles"
+            to_unit: "kilometers"
+        - tool_name: "calculator"
+          parameters:
+            operation: "divide"
+            values: [80.47, 60]
+      expected_sequence: ["unit_converter", "calculator"]
+      difficulty: "intermediate"
+      scoring_weight: 20
+      
+    - name: "weather_and_formatting"
+      description: "Get weather data and format the response"
+      prompt: "Get the weather for Paris and format the location name in uppercase"
+      expected_tools:
+        - tool_name: "weather_api"
+          parameters:
+            location: "Paris"
+        - tool_name: "text_formatter"
+          parameters:
+            text: "Paris"
+            operation: "uppercase"
+      difficulty: "intermediate"
+      scoring_weight: 20
+      
+    - name: "date_calculation_formatting"
+      description: "Add days to a date and format the result"
+      prompt: "Add 30 days to 2024-01-15 and format the result as 'January 15, 2024'"
+      expected_tools:
+        - tool_name: "datetime_tool"
+          parameters:
+            operation: "add_days"
+            date: "2024-01-15"
+            days: 30
+        - tool_name: "datetime_tool"
+          parameters:
+            operation: "format_date"
+            date: "2024-02-14"
+            format: "%B %d, %Y"
+      expected_sequence: ["datetime_tool", "datetime_tool"]
+      difficulty: "intermediate"
+      scoring_weight: 20
+      
+    - name: "invalid_calculation"
+      description: "Test handling of invalid mathematical operations"
+      prompt: "Calculate the square root of -100"
+      expected_tools:
+        - tool_name: "calculator"
+          parameters:
+            operation: "sqrt"
+            values: [-100]
+      error_handling: true
+      difficulty: "advanced"
+      scoring_weight: 15
+      
+    - name: "division_by_zero"
+      description: "Test handling of division by zero"
+      prompt: "Divide 10 by 0"
+      expected_tools:
+        - tool_name: "calculator"
+          parameters:
+            operation: "divide"
+            values: [10, 0]
+      error_handling: true
+      difficulty: "advanced"
+      scoring_weight: 15
+      
+    - name: "invalid_json"
+      description: "Test handling of invalid JSON"
+      prompt: "Parse this JSON: '{invalid json'"
+      expected_tools:
+        - tool_name: "json_processor"
+          parameters:
+            json_data: "{invalid json"
+            operation: "parse"
+      error_handling: true
+      difficulty: "advanced"
+      scoring_weight: 15

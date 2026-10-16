@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - LLM Evaluator{% endblock %}
+{% block nav_dashboard %}btn-active{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto space-y-6">
+    <!-- Header with Stats -->
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold mb-4">📊 LLM Evaluator Dashboard</h1>
+
+        <div class="stats shadow w-full">
+            <div class="stat">
+                <div class="stat-figure text-primary">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    </svg>
+                </div>
+                <div class="stat-title">Total Models</div>
+                <div class="stat-value" id="total-models">-</div>
+                <div class="stat-desc">Available for testing</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-figure text-secondary">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                    </svg>
+                </div>
+                <div class="stat-title">Test Runs</div>
+                <div class="stat-value" id="total-runs">{{ recent_runs|length }}</div>
+                <div class="stat-desc">Recent executions</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-figure text-accent">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <div class="stat-title">Provider Health</div>
+                <div class="stat-value" id="provider-status">
+                    <div id="provider-health-indicator"
+                         hx-get="/partials/provider-health"
+                         hx-trigger="load, every 10s">
+                        <div class="loading loading-spinner loading-sm"></div>
+                    </div>
+                </div>
+                <div class="stat-desc">Live status</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Models Status Table -->
+    <div class="card bg-base-200 shadow-xl">
+        <div class="card-body">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="card-title">🤖 Models & Test Results</h2>
+                <div class="space-x-2">
+                    <button class="btn btn-secondary btn-sm"
+                            hx-get="/partials/models-table"
+                            hx-target="#models-table"
+                            hx-trigger="click">
+                        🔄 Refresh
+                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="run_test_modal.showModal()">
+                        🚀 Start Test
+                    </button>
+                </div>
+            </div>
+
+            <div id="models-table"
+                 hx-get="/partials/models-table"
+                 hx-trigger="load, every 30s">
+                <div class="loading loading-spinner loading-lg"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid Layout for Logs and Quick Actions -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Live Logs (spans 2 columns) -->
+        <div class="lg:col-span-2">
+            <div class="card bg-base-200 shadow-xl h-96">
+                <div class="card-body">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="card-title">📋 Live Application Logs</h2>
+                        <div class="space-x-2">
+                            <button class="btn btn-xs btn-secondary"
+                                    onclick="document.getElementById('log-content').innerHTML=''">
+                                Clear
+                            </button>
+                            <button class="btn btn-xs btn-primary"
+                                    hx-get="/partials/logs"
+                                    hx-target="#log-content">
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-base-300 rounded-lg p-4 h-64 overflow-y-auto font-mono text-xs">
+                        <div id="log-content"
+                             hx-get="/partials/logs"
+                             hx-trigger="load, every 2s"
+                             class="whitespace-pre-wrap">
+                            <div class="loading loading-spinner loading-sm"></div>
+                        </div>
+                    </div>
+
+                    <div class="text-xs text-base-content/70 mt-2">
+                        Auto-refreshing every 2 seconds • Shows last 50 log entries
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions & Provider Health -->
+        <div class="space-y-6">
+            <!-- Quick Actions -->
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title">⚡ Quick Actions</h2>
+                    <div class="space-y-2">
+                        <button class="btn btn-primary btn-block" onclick="run_test_modal.showModal()">
+                            🚀 Start Test Run
+                        </button>
+                        <a href="/providers" class="btn btn-outline btn-block">
+                            ⚙️ Manage Providers
+                        </a>
+                        <a href="/tests" class="btn btn-outline btn-block">
+                            📝 Configure Tests
+                        </a>
+                        <a href="/results" class="btn btn-outline btn-block">
+                            📊 View Results
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Test Runs -->
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title">🧪 Recent Test Runs</h2>
+                    <div id="recent-runs"
+                         hx-get="/partials/recent-runs"
+                         hx-trigger="load, every 10s">
+                        <div class="loading loading-spinner loading-md"></div>
+                    </div>
+                    <div class="card-actions justify-end mt-4">
+                        <a href="/results" class="btn btn-primary btn-sm">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced Test Run Modal -->
+<dialog id="run_test_modal" class="modal">
+    <div class="modal-box w-11/12 max-w-2xl">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+
+        <h3 class="font-bold text-lg">🚀 Start New Test Run</h3>
+        <p class="py-4">Launch a comprehensive evaluation session with selected tests and models.</p>
+
+        <form hx-post="/api/tests/run"
+              hx-target="#test-result"
+              hx-on="htmx:afterRequest: if(event.detail.successful) { run_test_modal.close(); htmx.trigger('#models-table', 'refresh'); }">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="form-control w-full">
+                    <label class="label">
+                        <span class="label-text">Test Run Name</span>
+                    </label>
+                    <input name="run_name" type="text" placeholder="e.g., Weekly Model Evaluation"
+                           class="input input-bordered w-full" required>
+                </div>
+
+                <div class="form-control w-full">
+                    <label class="label">
+                        <span class="label-text">Test Configurations</span>
+                    </label>
+                    <div class="max-h-24 overflow-y-auto border rounded p-2">
+                        <label class="cursor-pointer label justify-start space-x-2">
+                            <input type="checkbox" name="test_config_ids" value="1" class="checkbox checkbox-sm">
+                            <span class="label-text text-xs">Basic Logic Test</span>
+                        </label>
+                        <label class="cursor-pointer label justify-start space-x-2">
+                            <input type="checkbox" name="test_config_ids" value="2" class="checkbox checkbox-sm">
+                            <span class="label-text text-xs">Mathematical Reasoning</span>
+                        </label>
+                        <label class="cursor-pointer label justify-start space-x-2">
+                            <input type="checkbox" name="test_config_ids" value="3" class="checkbox checkbox-sm">
+                            <span class="label-text text-xs">Python Function</span>
+                        </label>
+                        <label class="cursor-pointer label justify-start space-x-2">
+                            <input type="checkbox" name="test_config_ids" value="4" class="checkbox checkbox-sm">
+                            <span class="label-text text-xs">Algorithm Implementation</span>
+                        </label>
+                        <label class="cursor-pointer label justify-start space-x-2">
+                            <input type="checkbox" name="test_config_ids" value="5" class="checkbox checkbox-sm">
+                            <span class="label-text text-xs">Creative Writing</span>
+                        </label>
+                        <label class="cursor-pointer label justify-start space-x-2">
+                            <input type="checkbox" name="test_config_ids" value="6" class="checkbox checkbox-sm">
+                            <span class="label-text text-xs">Technical Explanation</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control w-full mt-4">
+                <label class="label">
+                    <span class="label-text">Description (optional)</span>
+                </label>
+                <textarea name="run_description" class="textarea textarea-bordered"
+                          placeholder="Describe this test run..."></textarea>
+            </div>
+
+            <div class="form-control w-full mt-4">
+                <label class="label">
+                    <span class="label-text">Models to Test</span>
+                </label>
+                <div class="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto border rounded p-2" id="model-selection">
+                    <!-- Will be populated by HTMX -->
+                    <div hx-get="/partials/model-checkboxes" hx-trigger="load"></div>
+                </div>
+            </div>
+
+            <div class="modal-action">
+                <button type="submit" class="btn btn-primary">
+                    <span class="htmx-indicator loading loading-spinner loading-sm"></span>
+                    Start Test Run
+                </button>
+                <button type="button" class="btn" onclick="run_test_modal.close()">Cancel</button>
+            </div>
+        </form>
+
+        <div id="test-result" class="mt-4"></div>
+    </div>
+</dialog>
+
+<script>
+// Auto-scroll logs to bottom
+const logContent = document.getElementById('log-content');
+if (logContent) {
+    const observer = new MutationObserver(() => {
+        logContent.scrollTop = logContent.scrollHeight;
+    });
+    observer.observe(logContent, { childList: true, subtree: true });
+}
+
+// Update model count
+document.body.addEventListener('htmx:afterSwap', function(evt) {
+    if (evt.target.id === 'models-table') {
+        const rows = evt.target.querySelectorAll('tbody tr');
+        document.getElementById('total-models').textContent = rows.length;
+    }
+});
+</script>
+{% endblock %}

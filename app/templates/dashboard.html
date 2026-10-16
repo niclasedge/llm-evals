@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - LLM Evaluator{% endblock %}
+{% block nav_dashboard %}btn-active{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Stats Overview -->
+    <div class="lg:col-span-3">
+        <h1 class="text-3xl font-bold mb-6">📊 Dashboard</h1>
+
+        <div class="stats shadow w-full">
+            <div class="stat">
+                <div class="stat-figure text-primary">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    </svg>
+                </div>
+                <div class="stat-title">Total Providers</div>
+                <div class="stat-value">{{ providers|length }}</div>
+                <div class="stat-desc">AI model providers</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-figure text-secondary">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                    </svg>
+                </div>
+                <div class="stat-title">Test Runs</div>
+                <div class="stat-value">{{ recent_runs|length }}</div>
+                <div class="stat-desc">Recent executions</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-figure text-accent">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <div class="stat-title">Success Rate</div>
+                <div class="stat-value">95%</div>
+                <div class="stat-desc">Last 24 hours</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Provider Health -->
+    <div class="card bg-base-200 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">🏥 Provider Health</h2>
+            <div id="provider-health"
+                 hx-get="/partials/provider-health"
+                 hx-trigger="load, refresh from:body">
+                <div class="loading loading-spinner loading-md"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Test Runs -->
+    <div class="card bg-base-200 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">🧪 Recent Test Runs</h2>
+            <div id="recent-runs"
+                 hx-get="/partials/recent-runs"
+                 hx-trigger="load, refresh from:body">
+                <div class="loading loading-spinner loading-md"></div>
+            </div>
+            <div class="card-actions justify-end">
+                <a href="/results" class="btn btn-primary btn-sm">View All</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card bg-base-200 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">⚡ Quick Actions</h2>
+            <div class="space-y-2">
+                <button class="btn btn-outline btn-block" onclick="run_test_modal.showModal()">
+                    🚀 Start Test Run
+                </button>
+                <a href="/providers" class="btn btn-outline btn-block">
+                    ⚙️ Manage Providers
+                </a>
+                <a href="/tests" class="btn btn-outline btn-block">
+                    📝 Configure Tests
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Test Run Modal -->
+<dialog id="run_test_modal" class="modal">
+    <div class="modal-box">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+
+        <h3 class="font-bold text-lg">🚀 Start Test Run</h3>
+        <p class="py-4">Launch a new evaluation session with selected tests and models.</p>
+
+        <form hx-post="/partials/start-test"
+              hx-target="#test-result"
+              hx-on="htmx:afterRequest: if(event.detail.successful) run_test_modal.close()">
+
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text">Test Run Name</span>
+                </label>
+                <input name="run_name" type="text" placeholder="Enter test run name"
+                       class="input input-bordered w-full" required>
+            </div>
+
+            <div class="form-control w-full mt-4">
+                <label class="label">
+                    <span class="label-text">Description (optional)</span>
+                </label>
+                <textarea name="run_description" class="textarea textarea-bordered"
+                          placeholder="Describe this test run..."></textarea>
+            </div>
+
+            <div class="modal-action">
+                <button type="submit" class="btn btn-primary">
+                    <span class="htmx-indicator loading loading-spinner loading-sm"></span>
+                    Start Test Run
+                </button>
+                <button type="button" class="btn" onclick="run_test_modal.close()">Cancel</button>
+            </div>
+        </form>
+
+        <div id="test-result"></div>
+    </div>
+</dialog>
+{% endblock %}

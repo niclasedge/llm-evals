@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Results - LLM Evaluator{% endblock %}
+{% block nav_results %}btn-active{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">📊 Test Results</h1>
+
+    <!-- Recent Test Runs -->
+    <div class="card bg-base-200 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">Recent Test Runs</h2>
+
+            <div class="overflow-x-auto">
+                <table class="table table-zebra w-full">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Progress</th>
+                            <th>Duration</th>
+                            <th>Started</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for run in runs %}
+                        <tr>
+                            <td class="font-medium">{{ run.name }}</td>
+                            <td>
+                                {% if run.status == 'completed' %}
+                                    <span class="badge badge-success">✓ {{ run.status }}</span>
+                                {% elif run.status == 'running' %}
+                                    <span class="badge badge-warning">⏳ {{ run.status }}</span>
+                                {% elif run.status == 'failed' %}
+                                    <span class="badge badge-error">✗ {{ run.status }}</span>
+                                {% else %}
+                                    <span class="badge badge-neutral">{{ run.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="flex items-center">
+                                    <progress class="progress progress-primary w-20 mr-2"
+                                              value="{{ run.completed_tests }}"
+                                              max="{{ run.total_tests }}"></progress>
+                                    <span class="text-sm">{{ run.completed_tests }}/{{ run.total_tests }}</span>
+                                </div>
+                            </td>
+                            <td class="text-sm">
+                                {% if run.duration %}
+                                    {{ "%.1f"|format(run.duration) }}s
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td class="text-sm opacity-70">
+                                {% if run.started_at %}
+                                    {{ run.started_at.strftime('%m/%d %H:%M') }}
+                                {% else %}
+                                    {{ run.created_at.strftime('%m/%d %H:%M') }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="dropdown dropdown-end">
+                                    <div tabindex="0" role="button" class="btn btn-ghost btn-sm">⋮</div>
+                                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                        <li><a onclick="view_results_modal_{{ run.id }}.showModal()">📋 View Results</a></li>
+                                        <li><a>📈 Analytics</a></li>
+                                        <li><a>📥 Export</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Results Modal -->
+                        <dialog id="view_results_modal_{{ run.id }}" class="modal">
+                            <div class="modal-box w-11/12 max-w-5xl">
+                                <form method="dialog">
+                                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                </form>
+
+                                <h3 class="font-bold text-lg">{{ run.name }} - Results</h3>
+                                <div class="py-4"
+                                     hx-get="/api/results/runs/{{ run.id }}"
+                                     hx-trigger="load"
+                                     hx-target="this">
+                                    <div class="loading loading-spinner loading-md"></div>
+                                    Loading results...
+                                </div>
+                            </div>
+                        </dialog>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% if not runs %}
+                <div class="text-center py-8 opacity-50">
+                    No test runs found. Start a test run from the dashboard to see results here.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

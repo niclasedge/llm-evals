@@ -1,0 +1,194 @@
+# Advanced LLM Evaluation Test Configuration
+# Comprehensive testing based on Simon Willison's LLM CLI patterns
+
+test_suite:
+  name: "Advanced LLM Evaluation"
+  version: "1.0"
+  description: "Comprehensive evaluation tests for advanced LLM capabilities"
+
+tests:
+  # Advanced Text Generation
+  - name: "long_form_creative_writing"
+    type: "TextGenerationTest"
+    description: "Long-form creative writing test"
+    prompt: "Write a detailed short story (500+ words) about a time traveler who accidentally changes a small detail in the past and discovers the butterfly effect. Include dialogue, character development, and a twist ending."
+    system_prompt: "You are a professional creative writer. Write engaging, well-structured stories with rich detail."
+    expected_length: 500
+    min_length: 200
+    
+  - name: "technical_documentation"
+    type: "TextGenerationTest"
+    description: "Technical documentation writing"
+    prompt: "Write a comprehensive API documentation for a RESTful service that manages user accounts. Include endpoints, request/response examples, authentication, and error handling."
+    system_prompt: "You are a technical writer. Create clear, comprehensive documentation."
+    expected_length: 400
+    min_length: 150
+    
+  - name: "argumentative_essay"
+    type: "TextGenerationTest"
+    description: "Argumentative essay writing"
+    prompt: "Write a balanced argumentative essay discussing the pros and cons of remote work. Include evidence, counterarguments, and a well-reasoned conclusion."
+    system_prompt: "You are an academic writer. Present balanced arguments with evidence."
+    expected_length: 300
+    min_length: 100
+    
+  # Advanced Code Generation
+  - name: "algorithm_implementation"
+    type: "CodeGenerationTest"
+    description: "Complex algorithm implementation"
+    prompt: "Implement a Python class for a Binary Search Tree with methods for insertion, deletion, search, and in-order traversal. Include comprehensive error handling and documentation."
+    system_prompt: "You are an expert software engineer. Write efficient, well-documented code."
+    language: "python"
+    validation:
+      requires_function: true
+      requires_docstring: true
+      requires_class: true
+      
+  - name: "design_patterns"
+    type: "CodeGenerationTest"
+    description: "Design pattern implementation"
+    prompt: "Implement the Observer pattern in Python with a Weather Station example. Include at least two different display types that update when weather data changes."
+    system_prompt: "You are a software architecture expert. Implement clean, maintainable design patterns."
+    language: "python"
+    validation:
+      requires_class: true
+      requires_inheritance: true
+      requires_docstring: true
+      
+  - name: "async_programming"
+    type: "CodeGenerationTest"
+    description: "Asynchronous programming"
+    prompt: "Write an async Python function that fetches data from multiple APIs concurrently, handles errors gracefully, and returns aggregated results. Include proper exception handling and timeout management."
+    system_prompt: "You are an expert in asynchronous programming. Write robust, concurrent code."
+    language: "python"
+    validation:
+      requires_async: true
+      requires_exception_handling: true
+      
+  # Advanced Reasoning
+  - name: "complex_logic_puzzle"
+    type: "ReasoningTest"
+    description: "Complex logic puzzle solving"
+    prompt: "Five people (Alice, Bob, Carol, David, Eve) each have a different pet (cat, dog, fish, bird, rabbit) and live in different colored houses (red, blue, green, yellow, white). Given these clues, determine who has which pet and lives in which house: 1) Alice lives in the red house. 2) The person with the cat lives in the blue house. 3) Bob has a dog. 4) The green house is immediately to the right of the white house. 5) Carol doesn't live in the green house. 6) The person in the yellow house has a bird. 7) David lives next to the person with the fish. 8) Eve doesn't have the rabbit."
+    system_prompt: "You are a logic puzzle expert. Solve systematically using deductive reasoning."
+    expected_result: "systematic solution"
+    min_length: 200
+    
+  - name: "mathematical_proof"
+    type: "ReasoningTest" 
+    description: "Mathematical proof construction"
+    prompt: "Prove that the sum of the first n odd numbers equals n squared. Provide a formal mathematical proof."
+    system_prompt: "You are a mathematics professor. Provide rigorous mathematical proofs."
+    expected_result: "induction proof"
+    min_length: 100
+    
+  - name: "causal_reasoning"
+    type: "ReasoningTest"
+    description: "Causal reasoning analysis"
+    prompt: "Analyze this scenario: A company's sales increased by 30% after implementing a new marketing strategy. However, during the same period, their main competitor went out of business and the economy improved significantly. What can we conclude about the effectiveness of the marketing strategy? Discuss potential confounding factors and how to establish causation."
+    system_prompt: "You are a research methodology expert. Analyze causation vs correlation carefully."
+    expected_result: "confounding factors"
+    min_length: 150
+    
+  # Advanced Performance Tests
+  - name: "high_concurrency_test"
+    type: "PerformanceTest"
+    description: "High concurrency performance test"
+    prompt: "Explain the key differences between machine learning and artificial intelligence, providing specific examples of each."
+    system_prompt: "You are a technical educator."
+    concurrent_requests: 10
+    target_time: 15.0
+    min_length: 100
+    
+  - name: "consistency_under_load"
+    type: "PerformanceTest"
+    description: "Consistency under load test"
+    prompt: "Describe the main principles of agile software development methodology."
+    system_prompt: "You are a software development expert."
+    iterations: 10
+    min_length: 80
+    
+  - name: "large_context_handling"
+    type: "PerformanceTest"
+    description: "Large context handling test"
+    prompt: "Given this large dataset description [imagine a 1000+ word description of a complex dataset], summarize the key insights and recommend analysis approaches. Focus on identifying patterns, outliers, and potential research questions."
+    system_prompt: "You are a data scientist. Analyze complex datasets systematically."
+    target_time: 20.0
+    min_length: 200
+    
+  # Specialized Tests
+  - name: "code_review_analysis"
+    type: "SpecializedTest"
+    description: "Code review and analysis"
+    prompt: "Review this Python code and provide detailed feedback on code quality, potential bugs, performance issues, and best practices: [include a sample Python function with intentional issues]"
+    system_prompt: "You are a senior code reviewer. Provide constructive, detailed feedback."
+    min_length: 150
+    
+  - name: "multilingual_capability"
+    type: "SpecializedTest"
+    description: "Multilingual text generation"
+    prompt: "Write a short paragraph about climate change in English, then translate it to Spanish and French. Ensure the translations maintain the original meaning and tone."
+    system_prompt: "You are a multilingual expert. Provide accurate translations."
+    min_length: 200
+    languages: ["en", "es", "fr"]
+    
+  - name: "ethical_reasoning"
+    type: "SpecializedTest"
+    description: "Ethical reasoning and dilemma analysis"
+    prompt: "Analyze this ethical dilemma: An autonomous vehicle's AI must choose between hitting one person or swerving to hit three people. Discuss the ethical frameworks that apply, potential solutions, and the broader implications for AI ethics."
+    system_prompt: "You are an ethics professor. Analyze moral dilemmas thoroughly."
+    min_length: 200
+
+# Advanced Model Configuration
+models:
+  ollama:
+    - "llama3:70b"
+    - "mistral:7b"
+    - "codellama:13b"
+    
+  openrouter:
+    - "meta-llama/llama-3.3-8b-instruct:free"
+    - "google/gemma-3-1b-it:free"
+    - "microsoft/phi-4-reasoning:free"
+    - "deepseek/deepseek-chat-v3-0324:free"
+    
+  llm_cli:
+    - "gpt-4"
+    - "claude-3-sonnet"
+    - "gpt-3.5-turbo"
+
+# Advanced Execution Configuration
+execution:
+  parallel_models: true
+  parallel_tests: false  # Run tests sequentially for consistency
+  timeout_seconds: 60
+  max_retries: 3
+  memory_limit_mb: 2048
+  
+# Advanced Reporting Configuration
+reporting:
+  format: "html"
+  include_details: true
+  include_metrics: true
+  save_responses: true
+  save_raw_data: true
+  generate_charts: true
+  output_directory: "advanced_test_results"
+  
+# Evaluation Metrics
+metrics:
+  - accuracy
+  - consistency
+  - response_time
+  - creativity_score
+  - technical_accuracy
+  - logical_coherence
+  - code_quality
+  
+# Scoring Weights
+scoring:
+  accuracy: 0.3
+  creativity: 0.2
+  technical_quality: 0.25
+  performance: 0.15
+  consistency: 0.1

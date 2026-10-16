@@ -1,0 +1,62 @@
+{
+  "id": "array_sum",
+  "title": "Array Sum",
+  "description": "Write a function that calculates the sum of all elements in an array of integers.",
+  "difficulty": "easy",
+  "languages": [
+    "python",
+    "javascript"
+  ],
+  "test_cases": [
+    {
+      "id": "1",
+      "input_data": "[1,2,3,4,5]",
+      "expected_output": "15",
+      "time_limit": 5.0,
+      "memory_limit": 128,
+      "description": "Sum of [1,2,3,4,5] is 15",
+      "hidden": false
+    },
+    {
+      "id": "2",
+      "input_data": "[10,20,30]",
+      "expected_output": "60",
+      "time_limit": 5.0,
+      "memory_limit": 128,
+      "description": "Sum of [10,20,30] is 60",
+      "hidden": false
+    },
+    {
+      "id": "3",
+      "input_data": "[]",
+      "expected_output": "0",
+      "time_limit": 5.0,
+      "memory_limit": 128,
+      "description": "Sum of empty array is 0",
+      "hidden": false
+    },
+    {
+      "id": "4",
+      "input_data": "[-1,1,-2,2]",
+      "expected_output": "0",
+      "time_limit": 5.0,
+      "memory_limit": 128,
+      "description": "Sum with negative numbers",
+      "hidden": false
+    }
+  ],
+  "starter_code": {
+    "python": "def array_sum(arr):\\n    # Write your solution here\\n    pass\\n\\nif __name__ == '__main__':\\n    import sys\\n    import json\\n    arr = json.loads(sys.argv[1]) if len(sys.argv) > 1 else json.loads(input())\\n    print(array_sum(arr))",
+    "javascript": "function arraySum(arr) {\\n    // Write your solution here\\n}\\n\\nconst arr = JSON.parse(process.argv[2]) || JSON.parse(require('readline-sync').question());\\nconsole.log(arraySum(arr));"
+  },
+  "solution": {},
+  "tags": [
+    "array",
+    "basic",
+    "math"
+  ],
+  "time_limit": 5.0,
+  "memory_limit": 128,
+  "created_at": "2025-07-08T07:37:47.127664",
+  "updated_at": "2025-07-08T07:37:47.127665"
+}

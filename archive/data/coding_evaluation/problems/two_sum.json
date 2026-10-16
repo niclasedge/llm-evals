@@ -1,0 +1,50 @@
+{
+  "id": "two_sum",
+  "title": "Two Sum",
+  "description": "Given an array of integers and a target sum, return the indices of two numbers that add up to the target. You may assume that each input would have exactly one solution, and you may not use the same element twice.",
+  "difficulty": "medium",
+  "languages": ["python", "javascript", "java", "cpp"],
+  "test_cases": [
+    {
+      "id": "1",
+      "input_data": "[2,7,11,15] 9",
+      "expected_output": "[0,1]",
+      "time_limit": 3.0,
+      "memory_limit": 128,
+      "description": "Basic case: 2 + 7 = 9"
+    },
+    {
+      "id": "2",
+      "input_data": "[3,2,4] 6",
+      "expected_output": "[1,2]",
+      "time_limit": 3.0,
+      "memory_limit": 128,
+      "description": "Another case: 2 + 4 = 6"
+    },
+    {
+      "id": "3",
+      "input_data": "[3,3] 6",
+      "expected_output": "[0,1]",
+      "time_limit": 3.0,
+      "memory_limit": 128,
+      "description": "Duplicate numbers: 3 + 3 = 6"
+    }
+  ],
+  "starter_code": {
+    "python": "def two_sum(nums, target):\n    # Write your solution here\n    pass\n\n# Test the function\nif __name__ == '__main__':\n    import sys\n    import json\n    line = ' '.join(sys.argv[1:]) if len(sys.argv) > 1 else input()\n    parts = line.rsplit(' ', 1)\n    nums = json.loads(parts[0])\n    target = int(parts[1])\n    print(json.dumps(two_sum(nums, target)))",
+    "javascript": "function twoSum(nums, target) {\n    // Write your solution here\n}\n\n// Test the function\nconst input = process.argv.slice(2).join(' ') || require('readline-sync').question();\nconst parts = input.split(' ');\nconst target = parseInt(parts.pop());\nconst nums = JSON.parse(parts.join(' '));\nconsole.log(JSON.stringify(twoSum(nums, target)));",
+    "java": "import java.util.*;\n\npublic class TwoSum {\n    public static int[] twoSum(int[] nums, int target) {\n        // Write your solution here\n        return new int[0];\n    }\n    \n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        String line = scanner.nextLine();\n        String[] parts = line.split(\" \");\n        int target = Integer.parseInt(parts[parts.length - 1]);\n        \n        String numsStr = line.substring(0, line.lastIndexOf(' '));\n        numsStr = numsStr.substring(1, numsStr.length() - 1);\n        String[] numStrs = numsStr.split(\",\");\n        int[] nums = new int[numStrs.length];\n        for (int i = 0; i < numStrs.length; i++) {\n            nums[i] = Integer.parseInt(numStrs[i].trim());\n        }\n        \n        int[] result = twoSum(nums, target);\n        System.out.println(\"[\" + result[0] + \",\" + result[1] + \"]\");\n    }\n}",
+    "cpp": "#include <iostream>\n#include <vector>\n#include <sstream>\nusing namespace std;\n\nvector<int> twoSum(vector<int>& nums, int target) {\n    // Write your solution here\n    return {};\n}\n\nint main() {\n    string line;\n    getline(cin, line);\n    \n    // Parse input\n    size_t lastSpace = line.find_last_of(' ');\n    int target = stoi(line.substr(lastSpace + 1));\n    \n    string numsStr = line.substr(1, lastSpace - 2);\n    vector<int> nums;\n    stringstream ss(numsStr);\n    string num;\n    while (getline(ss, num, ',')) {\n        nums.push_back(stoi(num));\n    }\n    \n    vector<int> result = twoSum(nums, target);\n    cout << \"[\" << result[0] << \",\" << result[1] << \"]\" << endl;\n    \n    return 0;\n}"
+  },
+  "solution": {
+    "python": "def two_sum(nums, target):\n    num_map = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in num_map:\n            return [num_map[complement], i]\n        num_map[num] = i\n    return []",
+    "javascript": "function twoSum(nums, target) {\n    const numMap = new Map();\n    for (let i = 0; i < nums.length; i++) {\n        const complement = target - nums[i];\n        if (numMap.has(complement)) {\n            return [numMap.get(complement), i];\n        }\n        numMap.set(nums[i], i);\n    }\n    return [];\n}",
+    "java": "public static int[] twoSum(int[] nums, int target) {\n    Map<Integer, Integer> numMap = new HashMap<>();\n    for (int i = 0; i < nums.length; i++) {\n        int complement = target - nums[i];\n        if (numMap.containsKey(complement)) {\n            return new int[]{numMap.get(complement), i};\n        }\n        numMap.put(nums[i], i);\n    }\n    return new int[0];\n}",
+    "cpp": "vector<int> twoSum(vector<int>& nums, int target) {\n    unordered_map<int, int> numMap;\n    for (int i = 0; i < nums.size(); i++) {\n        int complement = target - nums[i];\n        if (numMap.find(complement) != numMap.end()) {\n            return {numMap[complement], i};\n        }\n        numMap[nums[i]] = i;\n    }\n    return {};\n}"
+  },
+  "tags": ["array", "hash-table", "algorithm"],
+  "time_limit": 5.0,
+  "memory_limit": 128,
+  "created_at": "2025-07-08T07:26:08.000000",
+  "updated_at": "2025-07-08T07:26:08.000000"
+}

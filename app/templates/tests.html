@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}Tests - LLM Evaluator{% endblock %}
+{% block nav_tests %}btn-active{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">🧪 Test Configurations</h1>
+
+    <!-- Test Categories -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {% for category in categories %}
+        <div class="card bg-base-200 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-lg">{{ category.name }}</h2>
+                <p class="text-sm opacity-70">{{ category.description }}</p>
+                <div class="card-actions justify-end">
+                    <div class="badge badge-primary">{{ category.test_type }}</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Test Configurations -->
+    <div class="card bg-base-200 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">Available Tests</h2>
+
+            <div class="overflow-x-auto">
+                <table class="table table-zebra w-full">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Difficulty</th>
+                            <th>Tags</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for config in configs %}
+                        <tr>
+                            <td class="font-medium">{{ config.name }}</td>
+                            <td>
+                                <span class="badge badge-outline">{{ config.category.name if config.category else 'Unknown' }}</span>
+                            </td>
+                            <td>
+                                {% if config.difficulty == 'easy' %}
+                                    <span class="badge badge-success">{{ config.difficulty }}</span>
+                                {% elif config.difficulty == 'medium' %}
+                                    <span class="badge badge-warning">{{ config.difficulty }}</span>
+                                {% else %}
+                                    <span class="badge badge-error">{{ config.difficulty }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="flex flex-wrap gap-1">
+                                    {% for tag in config.tags[:3] %}
+                                    <span class="badge badge-ghost badge-sm">{{ tag }}</span>
+                                    {% endfor %}
+                                    {% if config.tags|length > 3 %}
+                                    <span class="badge badge-ghost badge-sm">+{{ config.tags|length - 3 }}</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dropdown dropdown-end">
+                                    <div tabindex="0" role="button" class="btn btn-ghost btn-sm">⋮</div>
+                                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                        <li><a onclick="view_test_modal_{{ config.id }}.showModal()">📋 View Details</a></li>
+                                        <li><a>🚀 Run Test</a></li>
+                                        <li><a>✏️ Edit</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Test Detail Modal -->
+                        <dialog id="view_test_modal_{{ config.id }}" class="modal">
+                            <div class="modal-box w-11/12 max-w-4xl">
+                                <form method="dialog">
+                                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                </form>
+
+                                <h3 class="font-bold text-lg">{{ config.name }}</h3>
+                                <div class="py-4">
+                                    <div class="mb-4">
+                                        <h4 class="font-semibold mb-2">Prompt:</h4>
+                                        <div class="bg-base-100 p-3 rounded text-sm">{{ config.prompt }}</div>
+                                    </div>
+
+                                    {% if config.expected_output %}
+                                    <div class="mb-4">
+                                        <h4 class="font-semibold mb-2">Expected Output:</h4>
+                                        <div class="bg-base-100 p-3 rounded text-sm">{{ config.expected_output }}</div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if config.evaluation_prompt %}
+                                    <div class="mb-4">
+                                        <h4 class="font-semibold mb-2">Evaluation Criteria:</h4>
+                                        <div class="bg-base-100 p-3 rounded text-sm">{{ config.evaluation_prompt }}</div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </dialog>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% if not configs %}
+                <div class="text-center py-8 opacity-50">
+                    No test configurations found. Initialize the database to load test data.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

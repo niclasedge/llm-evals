@@ -1,0 +1,28 @@
+# Node modules
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+
+# Promptfoo cache and data
+.promptfoo/
+promptfoo.db
+
+# Results (optional - uncomment if you don't want to track results)
+# results/*.json
+# results/*.yaml
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

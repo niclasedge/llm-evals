@@ -1,0 +1,27 @@
+{
+  "id": "performance_test",
+  "title": "Performance Test",
+  "description": "Simple echo test",
+  "difficulty": "ProblemDifficulty.EASY",
+  "languages": [
+    "ProgrammingLanguage.PYTHON"
+  ],
+  "test_cases": [
+    {
+      "id": "1",
+      "input_data": "5",
+      "expected_output": "5",
+      "time_limit": 5.0,
+      "memory_limit": 128,
+      "description": null,
+      "hidden": false
+    }
+  ],
+  "starter_code": {},
+  "solution": {},
+  "tags": [],
+  "time_limit": 5.0,
+  "memory_limit": 128,
+  "created_at": "2025-07-09 10:03:29.517910",
+  "updated_at": "2025-07-09 10:03:29.517911"
+}

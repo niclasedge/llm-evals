@@ -1,0 +1,295 @@
+{
+  "evalId": "eval-2TL-2025-10-17T21:20:38",
+  "results": {
+    "version": 3,
+    "timestamp": "2025-10-17T21:20:38.096Z",
+    "prompts": [
+      {
+        "raw": "Answer the following question concisely: {{question}}",
+        "label": "Answer the following question concisely: {{question}}",
+        "id": "747bb9763b616b78a036d5420bfae19156b3a791c6818bd2341e44f8ac89757c",
+        "provider": "Gemma3 1B (Local)",
+        "metrics": {
+          "score": 1,
+          "testPassCount": 1,
+          "testFailCount": 1,
+          "testErrorCount": 0,
+          "assertPassCount": 1,
+          "assertFailCount": 1,
+          "totalLatencyMs": 1931,
+          "tokenUsage": {
+            "prompt": 44,
+            "completion": 11,
+            "cached": 0,
+            "total": 55,
+            "numRequests": 2,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0
+        }
+      }
+    ],
+    "results": [
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "Paris"
+              }
+            }
+          ]
+        },
+        "id": "9390209c-b13b-4dc7-ba96-6dd8e5d56ae9",
+        "latencyMs": 980,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Answer the following question concisely: What is the capital of France?",
+          "label": "Answer the following question concisely: {{question}}"
+        },
+        "promptId": "747bb9763b616b78a036d5420bfae19156b3a791c6818bd2341e44f8ac89757c",
+        "promptIdx": 0,
+        "provider": {
+          "id": "ollama:gemma3:1b",
+          "label": "Gemma3 1B (Local)"
+        },
+        "response": {
+          "output": "Paris.",
+          "tokenUsage": {
+            "prompt": 22,
+            "completion": 3,
+            "total": 25
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "vars": {
+            "question": "What is the capital of France?"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "Paris"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 0,
+        "vars": {
+          "question": "What is the capital of France?"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "error": "Expected output to contain all of [red, blue, yellow]. Missing: [red, blue, yellow]",
+        "gradingResult": {
+          "pass": false,
+          "score": 0,
+          "reason": "Expected output to contain all of [red, blue, yellow]. Missing: [red, blue, yellow]",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": false,
+              "score": 0,
+              "reason": "Expected output to contain all of [red, blue, yellow]. Missing: [red, blue, yellow]",
+              "assertion": {
+                "type": "contains-all",
+                "value": [
+                  "red",
+                  "blue",
+                  "yellow"
+                ]
+              }
+            }
+          ]
+        },
+        "id": "391cd146-ed67-4775-931e-701689096b42",
+        "latencyMs": 951,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Answer the following question concisely: What are the three primary colors?",
+          "label": "Answer the following question concisely: {{question}}"
+        },
+        "promptId": "747bb9763b616b78a036d5420bfae19156b3a791c6818bd2341e44f8ac89757c",
+        "promptIdx": 0,
+        "provider": {
+          "id": "ollama:gemma3:1b",
+          "label": "Gemma3 1B (Local)"
+        },
+        "response": {
+          "output": "Red, Yellow, and Blue.",
+          "tokenUsage": {
+            "prompt": 22,
+            "completion": 8,
+            "total": 30
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "question": "What are the three primary colors?"
+          },
+          "assert": [
+            {
+              "type": "contains-all",
+              "value": [
+                "red",
+                "blue",
+                "yellow"
+              ]
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 1,
+        "vars": {
+          "question": "What are the three primary colors?"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 1
+      }
+    ],
+    "stats": {
+      "successes": 1,
+      "failures": 1,
+      "errors": 0,
+      "tokenUsage": {
+        "prompt": 44,
+        "completion": 11,
+        "cached": 0,
+        "total": 55,
+        "numRequests": 2,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0
+        },
+        "assertions": {
+          "total": 0,
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "numRequests": 0,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0
+          }
+        }
+      }
+    }
+  },
+  "config": {
+    "tags": {},
+    "description": "Quick test of basic text generation with one model",
+    "prompts": [
+      "Answer the following question concisely: {{question}}"
+    ],
+    "providers": [
+      {
+        "id": "ollama:gemma3:1b",
+        "label": "Gemma3 1B (Local)",
+        "config": {
+          "temperature": 0.7
+        }
+      }
+    ],
+    "tests": [
+      {
+        "vars": {
+          "question": "What is the capital of France?"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "Paris"
+          }
+        ]
+      },
+      {
+        "vars": {
+          "question": "What are the three primary colors?"
+        },
+        "assert": [
+          {
+            "type": "contains-all",
+            "value": [
+              "red",
+              "blue",
+              "yellow"
+            ]
+          }
+        ]
+      }
+    ],
+    "scenarios": [],
+    "env": {},
+    "sharing": false,
+    "outputPath": [
+      "results/basic_text_quick_results.json"
+    ],
+    "extensions": [],
+    "metadata": {},
+    "evaluateOptions": {}
+  },
+  "shareableUrl": null,
+  "metadata": {
+    "promptfooVersion": "0.118.17",
+    "nodeVersion": "v24.6.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "exportedAt": "2025-10-17T21:20:39.096Z",
+    "evaluationCreatedAt": "2025-10-17T21:20:38.096Z"
+  }
+}

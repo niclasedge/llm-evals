@@ -1,0 +1,45 @@
+# Core FastAPI Dependencies
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
+# Database Dependencies
+sqlmodel>=0.0.14
+aiosqlite>=0.19.0
+greenlet>=3.0.0  # required by SQLAlchemy asyncio
+alembic>=1.13.0
+
+# Template Engine
+jinja2>=3.1.2
+
+# HTTP Client for LLM APIs
+httpx>=0.25.0
+aiohttp>=3.8.0
+
+# Configuration Management
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+python-dotenv>=1.0.0
+
+# Logging and Monitoring
+structlog>=23.2.0
+rich>=13.7.0
+typer>=0.9.0  # CLI (cli_runner.py)
+
+# Data Processing
+pandas>=2.1.0
+numpy>=1.24.0
+
+# Testing Dependencies
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-xdist>=3.5.0
+httpx>=0.25.0  # For testing FastAPI
+
+# Development Dependencies
+black>=23.0.0
+ruff>=0.1.0
+mypy>=1.7.0
+
+# LLM Integration
+openai>=1.0.0  # For OpenAI compatible APIs (OpenRouter, Ollama)

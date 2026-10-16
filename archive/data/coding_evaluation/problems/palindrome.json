@@ -1,0 +1,58 @@
+{
+  "id": "palindrome",
+  "title": "Palindrome Check",
+  "description": "Write a function that checks if a given string is a palindrome. A palindrome is a word, phrase, number, or other sequence of characters that reads the same forward and backward.",
+  "difficulty": "easy",
+  "languages": ["python", "javascript", "java", "cpp"],
+  "test_cases": [
+    {
+      "id": "1",
+      "input_data": "racecar",
+      "expected_output": "true",
+      "time_limit": 2.0,
+      "memory_limit": 64,
+      "description": "Simple palindrome"
+    },
+    {
+      "id": "2",
+      "input_data": "hello",
+      "expected_output": "false",
+      "time_limit": 2.0,
+      "memory_limit": 64,
+      "description": "Not a palindrome"
+    },
+    {
+      "id": "3",
+      "input_data": "madam",
+      "expected_output": "true",
+      "time_limit": 2.0,
+      "memory_limit": 64,
+      "description": "Another palindrome"
+    },
+    {
+      "id": "4",
+      "input_data": "python",
+      "expected_output": "false",
+      "time_limit": 2.0,
+      "memory_limit": 64,
+      "description": "Not a palindrome"
+    }
+  ],
+  "starter_code": {
+    "python": "def is_palindrome(s):\n    # Write your solution here\n    pass\n\n# Test the function\nif __name__ == '__main__':\n    import sys\n    s = sys.argv[1] if len(sys.argv) > 1 else input()\n    print(str(is_palindrome(s)).lower())",
+    "javascript": "function isPalindrome(s) {\n    // Write your solution here\n}\n\n// Test the function\nconst s = process.argv[2] || require('readline-sync').question();\nconsole.log(isPalindrome(s).toString());",
+    "java": "import java.util.Scanner;\n\npublic class Palindrome {\n    public static boolean isPalindrome(String s) {\n        // Write your solution here\n        return false;\n    }\n    \n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        String s = args.length > 0 ? args[0] : scanner.nextLine();\n        System.out.println(isPalindrome(s));\n    }\n}",
+    "cpp": "#include <iostream>\n#include <string>\nusing namespace std;\n\nbool isPalindrome(string s) {\n    // Write your solution here\n    return false;\n}\n\nint main() {\n    string s;\n    cin >> s;\n    cout << (isPalindrome(s) ? \"true\" : \"false\") << endl;\n    return 0;\n}"
+  },
+  "solution": {
+    "python": "def is_palindrome(s):\n    s = s.lower()\n    return s == s[::-1]",
+    "javascript": "function isPalindrome(s) {\n    s = s.toLowerCase();\n    return s === s.split('').reverse().join('');\n}",
+    "java": "public static boolean isPalindrome(String s) {\n    s = s.toLowerCase();\n    int left = 0, right = s.length() - 1;\n    while (left < right) {\n        if (s.charAt(left) != s.charAt(right)) return false;\n        left++; right--;\n    }\n    return true;\n}",
+    "cpp": "bool isPalindrome(string s) {\n    transform(s.begin(), s.end(), s.begin(), ::tolower);\n    int left = 0, right = s.length() - 1;\n    while (left < right) {\n        if (s[left] != s[right]) return false;\n        left++; right--;\n    }\n    return true;\n}"
+  },
+  "tags": ["string", "basic", "algorithm"],
+  "time_limit": 5.0,
+  "memory_limit": 128,
+  "created_at": "2025-07-08T07:26:08.000000",
+  "updated_at": "2025-07-08T07:26:08.000000"
+}

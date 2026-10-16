@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "created_for": "unified_interface_benchmarking"
+  },
+  "timing_baselines": {
+    "simple_evaluation": {
+      "max_execution_time_ms": 1000,
+      "target_execution_time_ms": 500,
+      "acceptable_variance_pct": 20
+    },
+    "medium_evaluation": {
+      "max_execution_time_ms": 5000,
+      "target_execution_time_ms": 2000,
+      "acceptable_variance_pct": 30
+    },
+    "complex_evaluation": {
+      "max_execution_time_ms": 15000,
+      "target_execution_time_ms": 8000,
+      "acceptable_variance_pct": 40
+    },
+    "api_request": {
+      "max_execution_time_ms": 2000,
+      "target_execution_time_ms": 800,
+      "acceptable_variance_pct": 25
+    }
+  },
+  "memory_baselines": {
+    "simple_evaluation": {
+      "max_peak_memory_mb": 50,
+      "target_peak_memory_mb": 25,
+      "memory_leak_threshold_mb": 5
+    },
+    "medium_evaluation": {
+      "max_peak_memory_mb": 100,
+      "target_peak_memory_mb": 60,
+      "memory_leak_threshold_mb": 10
+    },
+    "complex_evaluation": {
+      "max_peak_memory_mb": 200,
+      "target_peak_memory_mb": 120,
+      "memory_leak_threshold_mb": 15
+    }
+  },
+  "concurrent_baselines": {
+    "light_load": {
+      "max_concurrent_users": 5,
+      "max_response_time_ms": 2000,
+      "min_throughput_requests_per_second": 2
+    },
+    "moderate_load": {
+      "max_concurrent_users": 10,
+      "max_response_time_ms": 5000,
+      "min_throughput_requests_per_second": 1
+    },
+    "heavy_load": {
+      "max_concurrent_users": 20,
+      "max_response_time_ms": 10000,
+      "min_throughput_requests_per_second": 0.5
+    }
+  }
+}

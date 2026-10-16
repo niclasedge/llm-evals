@@ -1,0 +1,333 @@
+# Code Generation Evaluation
+description: "Evaluate code generation capabilities across different models"
+
+prompts:
+  - |
+    Generate a {{language}} function that {{task}}.
+
+    Requirements:
+    - Use clear variable names
+    - Include basic error handling
+    - Add comments explaining the logic
+
+    Provide only the code without additional explanation.
+
+# Sequential execution for Ollama models (prevents GPU overload)
+maxConcurrency: 1
+
+providers:
+  # Ollama local models (code-focused) - Large
+  - id: ollama:qwen2.5-coder:7b
+    label: "Qwen2.5 Coder 7B (Local)"
+    config:
+      temperature: 0.3
+
+  - id: ollama:deepseek-r1:8b
+    label: "DeepSeek R1 8B (Local)"
+    config:
+      temperature: 0.3
+
+  - id: ollama:qwen3:8b
+    label: "Qwen3 8B (Local)"
+    config:
+      temperature: 0.3
+
+  - id: ollama:qwen2.5:7b
+    label: "Qwen2.5 7B (Local)"
+    config:
+      temperature: 0.3
+
+  - id: ollama:mistral:7b
+    label: "Mistral 7B (Local)"
+    config:
+      temperature: 0.3
+
+  - id: ollama:phi4-reasoning:latest
+    label: "Phi-4 Reasoning (Local)"
+    config:
+      temperature: 0.3
+
+  # Ollama local models - Very Large (20B+)
+  - id: ollama:gemma3:27b-it-qat
+    label: "Gemma3 27B QAT (Local)"
+    config:
+      temperature: 0.3
+
+  - id: ollama:gpt-oss:20b
+    label: "GPT-OSS 20B (Local)"
+    config:
+      temperature: 0.3
+
+  # Ollama local models - Medium
+  - id: ollama:qwen3:4b
+    label: "Qwen3 4B (Local)"
+    config:
+      temperature: 0.3
+
+  - id: ollama:gemma3:4b
+    label: "Gemma3 4B (Local)"
+    config:
+      temperature: 0.3
+
+  - id: ollama:llama3.2:3b
+    label: "Llama 3.2 3B (Local)"
+    config:
+      temperature: 0.3
+
+  - id: ollama:smollm2:1.7b
+    label: "SmolLM2 1.7B (Local)"
+    config:
+      temperature: 0.3
+
+  # Ollama local models - Small
+  - id: ollama:llama3.2:1b
+    label: "Llama 3.2 1B (Local)"
+    config:
+      temperature: 0.3
+
+  - id: ollama:gemma3:1b
+    label: "Gemma3 1B (Local)"
+    config:
+      temperature: 0.3
+
+  # === OPENROUTER MODELS ===
+  # Note: Set OPENROUTER_API_KEY in .env file to use OpenRouter models
+
+  # Anthropic Claude
+  - id: openrouter:anthropic/claude-haiku-4.5
+    label: "Claude Haiku 4.5"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+  - id: openrouter:anthropic/claude-sonnet-4.5
+    label: "Claude Sonnet 4.5"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Google Gemini Models
+  - id: openrouter:google/gemini-2.5-flash-lite
+    label: "Gemini 2.5 Flash Lite"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.5-flash
+    label: "Gemini 2.5 Flash"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.5-pro
+    label: "Gemini 2.5 Pro"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # OpenAI GPT Models
+  - id: openrouter:openai/gpt-5-nano
+    label: "GPT-5 Nano"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:openai/gpt-5-mini
+    label: "GPT-5 Mini"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # === FREE OPENROUTER MODELS ===
+  # Note: Free models have rate limits (50 requests/day for new users, 1000/day with $10 credits)
+  # Using free models opts-in to data training
+
+  # Meta Llama Free Models
+  - id: openrouter:meta-llama/llama-4-maverick:free
+    label: "Llama 4 Maverick (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:meta-llama/llama-4-scout:free
+    label: "Llama 4 Scout (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # DeepSeek Free Models
+  - id: openrouter:deepseek/deepseek-chat-v3-0324:free
+    label: "DeepSeek Chat v3 (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:deepseek/deepseek-r1:free
+    label: "DeepSeek R1 (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:deepseek/deepseek-r1-zero:free
+    label: "DeepSeek R1 Zero (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:deepseek/deepseek-r1-distill-llama-70b:free
+    label: "DeepSeek R1 Distill Llama 70B (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:deepseek/deepseek-r1-distill-qwen-32b:free
+    label: "DeepSeek R1 Distill Qwen 32B (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Google Free Models
+  - id: openrouter:google/gemini-2.5-pro-exp-03-25:free
+    label: "Gemini 2.5 Pro Exp (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.0-flash-thinking-exp:free
+    label: "Gemini 2.0 Flash Thinking (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.0-flash-exp:free
+    label: "Gemini 2.0 Flash Exp (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemma-3-27b-it:free
+    label: "Gemma 3 27B IT (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Nvidia Free Models
+  - id: openrouter:nvidia/llama-3.1-nemotron-ultra-253b-v1:free
+    label: "Llama 3.1 Nemotron Ultra 253B (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Qwen Free Models
+  - id: openrouter:qwen/qwq-32b:free
+    label: "QwQ 32B (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+tests:
+  # Python tests
+  - vars:
+      language: "Python"
+      task: "calculates the fibonacci sequence up to n terms"
+    assert:
+      - type: contains-all
+        value: ["def ", "fibonacci", "return"]
+      - type: llm-rubric
+        value: "The code should implement a fibonacci function that calculates n terms correctly"
+      - type: javascript
+        value: "output.includes('def') && output.split('\\n').length > 3"
+
+  - vars:
+      language: "Python"
+      task: "implements a binary search algorithm"
+    assert:
+      - type: contains-all
+        value: ["def ", "binary", "while", "return"]
+      - type: llm-rubric
+        value: "The code should implement binary search with proper mid-point calculation and comparison logic"
+
+  # JavaScript tests
+  - vars:
+      language: "JavaScript"
+      task: "sorts an array using quicksort algorithm"
+    assert:
+      - type: contains-all
+        value: ["function", "quicksort", "return"]
+      - type: llm-rubric
+        value: "The code should implement quicksort with proper partitioning and recursive calls"
+
+  - vars:
+      language: "JavaScript"
+      task: "validates email addresses using regex"
+    assert:
+      - type: contains-all
+        value: ["function", "email", "return"]
+      - type: contains-any
+        value: ["RegExp", "test(", "match("]
+      - type: llm-rubric
+        value: "The code should use regex to validate email format including @ symbol and domain"
+
+  # Algorithm tests
+  - vars:
+      language: "Python"
+      task: "finds the longest common subsequence of two strings"
+    assert:
+      - type: contains
+        value: "def"
+      - type: llm-rubric
+        value: "The code should implement LCS algorithm using dynamic programming or recursion"
+
+  - vars:
+      language: "JavaScript"
+      task: "implements a debounce function"
+    assert:
+      - type: contains-all
+        value: ["function", "setTimeout", "return"]
+      - type: llm-rubric
+        value: "The code should implement debouncing with proper timeout handling and function closure"
+
+  # Complex algorithm tests
+  - vars:
+      language: "Python"
+      task: "implements a function to find all permutations of a string"
+    assert:
+      - type: contains-all
+        value: ["def", "permutation"]
+      - type: llm-rubric
+        value: "The code should implement a permutation algorithm using either recursion or itertools, handling edge cases like empty strings, and returning all unique permutations"
+      - type: javascript
+        value: "output.includes('def') && (output.includes('recursive') || output.includes('itertools') || output.includes('permutation'))"
+
+  - vars:
+      language: "JavaScript"
+      task: "implements a depth-first search (DFS) algorithm for a graph represented as an adjacency list"
+    assert:
+      - type: contains-all
+        value: ["function", "dfs"]
+      - type: contains-any
+        value: ["visited", "stack", "recursive"]
+      - type: llm-rubric
+        value: "The code should implement DFS using either recursion or an explicit stack, tracking visited nodes to avoid cycles, and handling disconnected graphs"
+      - type: javascript
+        value: "output.split('\\n').length > 8"  # Expect substantial implementation
+
+  - vars:
+      language: "Python"
+      task: "implements a LRU (Least Recently Used) cache with get and put operations, both O(1) time complexity"
+    assert:
+      - type: contains-all
+        value: ["class", "LRU"]
+      - type: contains-any
+        value: ["OrderedDict", "dict", "HashMap"]
+      - type: llm-rubric
+        value: "The code should implement an LRU cache using a combination of a hash map and doubly linked list (or OrderedDict), with both get and put operations in O(1) time, including proper capacity management and eviction of least recently used items"
+      - type: javascript
+        value: "output.includes('get') && output.includes('put') && output.split('\\n').length > 10"
+
+outputPath: results/code_generation_results.json
+
+# Default test options (optional)
+# defaultTest:
+#   options:
+#     temperature: 0.3
+#     max_tokens: 1000

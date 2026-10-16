@@ -1,0 +1,170 @@
+# Performance Benchmark Configuration
+# Configuration for comprehensive LLM evaluation performance testing
+
+metadata:
+  version: "1.0"
+  description: "Performance benchmark configuration for unified LLM evaluation interface"
+  created_for: "Issue #17 - Benchmark Unified Interface Performance"
+
+# Execution Performance Tests
+execution_tests:
+  enabled: true
+  test_categories:
+    - "simple"     # Basic operations, quick tests
+    - "medium"     # Moderate complexity operations  
+    - "complex"    # Full evaluation workflows
+  
+  benchmark_settings:
+    warmup_runs: 2        # Number of warmup iterations
+    measurement_runs: 5   # Number of measured iterations
+    timeout_seconds: 30   # Maximum time per test
+  
+  target_performance:
+    simple_max_time_ms: 1000   # Simple operations should complete within 1s
+    medium_max_time_ms: 5000   # Medium operations should complete within 5s
+    complex_max_time_ms: 15000 # Complex operations should complete within 15s
+
+# Memory Usage Tests
+memory_tests:
+  enabled: true
+  
+  leak_detection:
+    enabled: true
+    threshold_mb: 10.0    # Memory increase threshold to consider a leak
+    test_runs: 3          # Number of runs for leak detection
+  
+  profiling:
+    track_peak_usage: true
+    track_memory_delta: true
+    force_gc: true        # Force garbage collection between tests
+  
+  target_memory:
+    simple_max_mb: 50     # Simple operations max memory
+    medium_max_mb: 100    # Medium operations max memory  
+    complex_max_mb: 200   # Complex operations max memory
+
+# API Efficiency Tests
+api_tests:
+  enabled: true
+  
+  providers:
+    - "openrouter"        # Test OpenRouter API efficiency
+    - "ollama"           # Test local Ollama API efficiency
+  
+  test_settings:
+    request_count: 10     # Number of requests per test
+    timeout_seconds: 30   # Timeout per request
+    concurrent_requests: 3 # Number of concurrent requests for batch tests
+  
+  target_performance:
+    max_response_time_ms: 2000  # Maximum acceptable response time
+    min_success_rate: 0.95      # Minimum success rate (95%)
+    min_throughput_rps: 1.0     # Minimum requests per second
+
+# Concurrent Performance Tests
+concurrent_tests:
+  enabled: true
+  
+  scenarios:
+    - "light_load"       # 2 concurrent users, 1 minute
+    - "moderate_load"    # 5 concurrent users, 2 minutes
+    # - "heavy_load"     # 10 concurrent users, 3 minutes (commented out for CI)
+  
+  test_settings:
+    max_workers: 5       # Maximum concurrent workers
+    ramp_up_enabled: true # Enable gradual ramp-up of users
+  
+  target_performance:
+    min_success_rate: 0.9        # 90% success rate under load
+    max_response_time_ms: 5000   # Max response time under load
+    min_throughput_rps: 0.5      # Minimum throughput under load
+
+# Web Interface Performance Tests
+web_interface_tests:
+  enabled: true
+  
+  test_categories:
+    page_load: true      # Test page loading performance
+    interactions: true   # Test user interaction responsiveness
+    data_handling: true  # Test data operations performance
+  
+  target_performance:
+    max_page_load_ms: 800       # Maximum page load time
+    max_interaction_ms: 300     # Maximum interaction response time
+    max_data_operation_ms: 1000 # Maximum data operation time
+
+# System Comparison Tests
+comparison_tests:
+  enabled: true
+  
+  baseline_settings:
+    baseline_path: "data/performance/baseline_measurements/"
+    create_baseline_if_missing: true
+    update_baseline_threshold: 0.1  # Update baseline if improvement > 10%
+  
+  comparison_criteria:
+    regression_threshold_pct: 5.0    # Consider >5% slowdown a regression
+    improvement_threshold_pct: 5.0   # Consider >5% speedup an improvement
+    critical_regression_pct: 20.0    # Consider >20% slowdown critical
+
+# Output Configuration
+output:
+  results_dir: "data/performance/benchmark_results/"
+  reports_dir: "data/performance/comparison_reports/"
+  
+  formats:
+    - "json"             # Save results as JSON
+    - "markdown"         # Generate markdown reports
+  
+  visualization:
+    generate_charts: true # Generate performance charts (requires matplotlib)
+    chart_formats:
+      - "png"
+      - "svg"
+  
+  retention:
+    keep_results_days: 30    # Keep detailed results for 30 days
+    keep_summaries_days: 90  # Keep summaries for 90 days
+
+# CI/CD Integration
+ci_integration:
+  fail_on_critical_regression: true    # Fail CI if critical regression detected
+  fail_on_memory_leaks: true          # Fail CI if memory leaks detected
+  fail_on_baseline_miss_pct: 50       # Fail CI if <50% of baseline targets met
+  
+  quick_mode:
+    enabled_in_ci: true               # Use quick mode in CI
+    max_test_time_minutes: 5          # Maximum total test time in CI
+    reduced_iterations: true          # Use fewer iterations in CI
+
+# Test Environment
+environment:
+  mock_external_apis: true            # Use mocked APIs for consistent testing
+  parallel_execution: true           # Allow parallel test execution
+  cleanup_after_tests: true          # Clean up test data after completion
+  
+  resource_limits:
+    max_memory_mb: 1000              # Maximum memory usage for tests
+    max_cpu_percent: 80              # Maximum CPU usage for tests
+    max_disk_mb: 500                 # Maximum disk usage for tests
+
+# Monitoring and Alerting
+monitoring:
+  performance_metrics: true          # Collect detailed performance metrics
+  system_resource_monitoring: true   # Monitor CPU, memory, disk during tests
+  
+  alerts:
+    regression_notifications: true    # Send alerts on performance regressions
+    memory_leak_notifications: true  # Send alerts on memory leaks detected
+    
+# Advanced Settings
+advanced:
+  statistical_analysis:
+    confidence_level: 0.95           # Statistical confidence level
+    outlier_detection: true          # Remove statistical outliers
+    trend_analysis: true             # Analyze performance trends over time
+  
+  optimization:
+    adaptive_iterations: true        # Adjust iterations based on variance
+    early_termination: true          # Stop early if results are conclusive
+    warmup_optimization: true       # Optimize warmup period automatically

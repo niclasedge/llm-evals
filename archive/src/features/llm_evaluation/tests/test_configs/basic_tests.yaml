@@ -1,0 +1,107 @@
+# Basic LLM Evaluation Test Configuration
+# Based on Simon Willison's LLM CLI patterns
+
+test_suite:
+  name: "Basic LLM Evaluation"
+  version: "1.0"
+  description: "Standard evaluation tests for LLM capabilities"
+
+tests:
+  # Text Generation Tests
+  - name: "creative_writing_robot"
+    type: "TextGenerationTest"
+    description: "Creative writing test about a robot"
+    prompt: "Write a short story about a robot who discovers it can dream."
+    system_prompt: "You are a creative writing assistant. Write engaging, imaginative stories."
+    expected_length: 200
+    min_length: 50
+    
+  - name: "question_answering_france"
+    type: "TextGenerationTest"
+    description: "Question answering about France"
+    prompt: "What is the capital of France and what are three major landmarks located there?"
+    system_prompt: "You are a knowledgeable geography assistant."
+    expected_result: "Paris Eiffel Tower Louvre Museum Arc de Triomphe"
+    min_length: 50
+    
+  - name: "summarization_ai"
+    type: "TextGenerationTest"
+    description: "Summarization of AI definition"
+    prompt: "Summarize the following text in 2-3 sentences: Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and animals. Leading AI textbooks define the field as the study of intelligent agents: any device that perceives its environment and takes actions that maximize its chance of successfully achieving its goals."
+    system_prompt: "You are a skilled summarization assistant."
+    expected_length: 100
+    min_length: 30
+    
+  # Code Generation Tests  
+  - name: "fibonacci_function"
+    type: "CodeGenerationTest"
+    description: "Implement Fibonacci function"
+    prompt: "Write a Python function called 'fibonacci' that returns the nth Fibonacci number. Include proper documentation."
+    system_prompt: "You are a skilled Python programmer. Write clean, well-documented code."
+    language: "python"
+    validation:
+      requires_function: true
+      requires_docstring: true
+    test_cases:
+      - args: [0]
+        expected: 0
+      - args: [1] 
+        expected: 1
+      - args: [5]
+        expected: 5
+      - args: [10]
+        expected: 55
+        
+  # Reasoning Tests
+  - name: "math_word_problem"
+    type: "ReasoningTest"
+    description: "Math word problem solving"
+    prompt: "Sarah has 24 apples. She gives 1/3 of them to her friend Tom, and then buys 8 more apples. How many apples does Sarah have now?"
+    system_prompt: "You are a math tutor. Solve problems step by step, showing your work clearly."
+    expected_result: 24
+    min_length: 50
+    
+  - name: "pattern_recognition"
+    type: "ReasoningTest"
+    description: "Number sequence pattern recognition"
+    prompt: "What comes next in this sequence: 2, 6, 18, 54, ?"
+    system_prompt: "You are a pattern recognition expert. Identify the pattern and explain your reasoning."
+    expected_result: "multiply by 3"
+    min_length: 30
+    
+  # Performance Tests
+  - name: "response_time_test"
+    type: "PerformanceTest"
+    description: "Response time performance"
+    prompt: "Write a short paragraph about the benefits of renewable energy."
+    system_prompt: "You are a helpful assistant."
+    iterations: 3
+    target_time: 5.0
+    min_length: 50
+
+# Model Configuration
+models:
+  ollama:
+    - "llama3"
+    - "mistral"
+  
+  openrouter:
+    - "meta-llama/llama-3.3-8b-instruct:free"
+    - "google/gemma-3-1b-it:free"
+    
+  llm_cli:
+    - "gpt-3.5-turbo"
+    - "claude-3-haiku"
+
+# Execution Configuration
+execution:
+  parallel_models: true
+  timeout_seconds: 30
+  max_retries: 2
+  
+# Reporting Configuration  
+reporting:
+  format: "markdown"
+  include_details: true
+  save_responses: true
+  output_directory: "test_results"

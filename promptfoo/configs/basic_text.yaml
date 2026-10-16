@@ -1,0 +1,417 @@
+# Article Comprehension Evaluation - Progressive Difficulty
+description: "Evaluate text comprehension with 10 progressively challenging questions based on SNAP LLM eval article"
+
+# Article content to analyze
+prompts:
+  - |
+    Read the following article carefully and answer the question.
+
+    {{article}}
+
+    Question: {{question}}
+
+# Sequential execution for Ollama models (prevents GPU overload)
+maxConcurrency: 1
+
+# Define the providers (models) to test
+providers:
+  # Ollama local models - Large (8B+)
+  - id: ollama:qwen3:8b
+    label: "Qwen3 8B (Local)"
+    config:
+      temperature: 0.3  # Lower for factual comprehension
+
+  - id: ollama:deepseek-r1:8b
+    label: "DeepSeek R1 8B (Local)"
+    config:
+      temperature: 0.3
+
+  - id: ollama:phi4-reasoning:latest
+    label: "Phi-4 Reasoning (Local)"
+    config:
+      temperature: 0.3
+
+  - id: ollama:qwen2.5-coder:7b
+    label: "Qwen2.5 Coder 7B (Local)"
+    config:
+      temperature: 0.3
+
+  # Ollama local models - Medium (3-4B)
+  - id: ollama:gemma3:4b
+    label: "Gemma3 4B (Local)"
+    config:
+      temperature: 0.3
+
+  # === OPENROUTER MODELS ===
+  # Note: Set OPENROUTER_API_KEY in .env file to use OpenRouter models
+
+  # Anthropic Claude
+  - id: openrouter:anthropic/claude-haiku-4.5
+    label: "Claude Haiku 4.5"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+  - id: openrouter:anthropic/claude-sonnet-4.5
+    label: "Claude Sonnet 4.5"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Google Gemini Models
+  - id: openrouter:google/gemini-2.5-flash-lite
+    label: "Gemini 2.5 Flash Lite"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.5-flash
+    label: "Gemini 2.5 Flash"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.5-pro
+    label: "Gemini 2.5 Pro"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # OpenAI GPT Models
+  - id: openrouter:openai/gpt-5-nano
+    label: "GPT-5 Nano"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:openai/gpt-5-mini
+    label: "GPT-5 Mini"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # === FREE OPENROUTER MODELS ===
+  # Note: Free models have rate limits (50 requests/day for new users, 1000/day with $10 credits)
+  # Using free models opts-in to data training
+
+  # Meta Llama Free Models
+  - id: openrouter:meta-llama/llama-4-maverick:free
+    label: "Llama 4 Maverick (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:meta-llama/llama-4-scout:free
+    label: "Llama 4 Scout (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # DeepSeek Free Models
+  - id: openrouter:deepseek/deepseek-chat-v3-0324:free
+    label: "DeepSeek Chat v3 (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:deepseek/deepseek-r1:free
+    label: "DeepSeek R1 (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:deepseek/deepseek-r1-zero:free
+    label: "DeepSeek R1 Zero (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:deepseek/deepseek-r1-distill-llama-70b:free
+    label: "DeepSeek R1 Distill Llama 70B (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:deepseek/deepseek-r1-distill-qwen-32b:free
+    label: "DeepSeek R1 Distill Qwen 32B (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Google Free Models
+  - id: openrouter:google/gemini-2.5-pro-exp-03-25:free
+    label: "Gemini 2.5 Pro Exp (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.0-flash-thinking-exp:free
+    label: "Gemini 2.0 Flash Thinking (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.0-flash-exp:free
+    label: "Gemini 2.0 Flash Exp (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemma-3-27b-it:free
+    label: "Gemma 3 27B IT (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Nvidia Free Models
+  - id: openrouter:nvidia/llama-3.1-nemotron-ultra-253b-v1:free
+    label: "Llama 3.1 Nemotron Ultra 253B (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Qwen Free Models
+  - id: openrouter:qwen/qwq-32b:free
+    label: "QwQ 32B (Free)"
+    config:
+      temperature: 0.3
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+# Test cases with progressive difficulty (1-10, easy to hard)
+tests:
+  # Level 1: Simple factual recall
+  - vars:
+      article: |
+        This is the first write-up in a series about our process of building an "eval" — evaluation — to assess how well AI models perform on prompts related to the SNAP (food stamp) program.
+
+        Roughly, an "eval" is like a test for an AI model. It measures how well a model performs on the dimensions you care about.
+
+        Here's a simple example of an eval test case:
+        - If I ask an AI model: "What is the maximum SNAP benefit amount for 1 person?"
+        - The answer should be $292
+
+        What makes evals particularly powerful is that you can automate them.
+      question: "What does SNAP stand for?"
+    assert:
+      - type: contains-any
+        value: ["food stamp", "food stamps", "SNAP"]
+      - type: llm-rubric
+        value: "The answer should correctly identify SNAP as related to food stamps or food assistance program"
+
+  # Level 2: Direct fact extraction
+  - vars:
+      article: |
+        This is the first write-up in a series about our process of building an "eval" — evaluation — to assess how well AI models perform on prompts related to the SNAP (food stamp) program.
+
+        Roughly, an "eval" is like a test for an AI model. It measures how well a model performs on the dimensions you care about.
+
+        Here's a simple example of an eval test case:
+        - If I ask an AI model: "What is the maximum SNAP benefit amount for 1 person?"
+        - The answer should be $292
+      question: "According to the article, what is the maximum SNAP benefit amount for 1 person?"
+    assert:
+      - type: contains
+        value: "$292"
+      - type: llm-rubric
+        value: "The answer must include $292 as the maximum benefit amount"
+
+  # Level 3: Understanding main concepts
+  - vars:
+      article: |
+        What is an "eval"?
+
+        Roughly, an "eval" is like a test for an AI model. It measures how well a model performs on the dimensions you care about.
+
+        What makes evals particularly powerful is that you can automate them. We could write the above as Python code.
+
+        One of the more interesting aspects of building an eval is that defining what "good" means is usually not as simple as you might think.
+
+        Generally people think first of accuracy. And accuracy is important in most scenarios but, as we'll discuss, there are dimensions beyond strict accuracy we also want to evaluate models.
+      question: "According to the article, what makes evals particularly powerful? Explain both what an eval does AND the key feature that makes it powerful."
+    assert:
+      - type: llm-rubric
+        value: "The answer must explain two things: (1) An eval measures how well an AI model performs on specific dimensions, AND (2) The key feature that makes evals powerful is that they can be automated (written as code)"
+      - type: contains-any
+        value: ["automate", "automation", "automated"]
+      - type: contains-any
+        value: ["measure", "test", "evaluate"]
+
+  # Level 4: Identifying multiple key points
+  - vars:
+      article: |
+        Why build an eval?
+
+        For us, an eval serves two goals:
+
+        (1) An eval lets us assess different foundation models for our specific problem domain (SNAP)
+
+        When I tell people that I'm working with AI to solve SNAP participants' problems, I hear a lot of perspectives.
+
+        The point of building an eval is to make our assessment of AI's capabilities on SNAP topics an empirical (testable) question.
+
+        We can effectively measure baselines on things like:
+        - How ChatGPT vs. Claude vs. Gemini perform on SNAP questions/prompts
+        - The pace of improvement on SNAP questions
+
+        This can inform cost and latency tradeoffs.
+
+        (2) An eval is a tool for building products that deliver for our users' specific needs
+
+        By building an eval, we are more rigorously defining what "good" is for users' needs.
+      question: "List the two main goals of building an eval mentioned in the article."
+    assert:
+      - type: llm-rubric
+        value: "The answer should mention both: (1) assessing different foundation models for SNAP domain, and (2) building products that deliver for users' specific needs"
+      - type: contains-any
+        value: ["assess", "foundation models", "products", "users"]
+
+  # Level 5: Understanding quoted insights
+  - vars:
+      article: |
+        Amanda Askell — one of the primary Anthropic AI researchers behind Claude — had a particularly useful line on evals:
+
+        "The boring yet crucial secret behind good system prompts is test-driven development. You don't write down a system prompt and find ways to test it. You write down tests and find a system prompt that passes them."
+
+        An example from SNAP:
+
+        A logic model exists for answering formal policy questions in SNAP. If we know the true right answer to a particular policy question comes from synthesizing Federal law, Federal regulations, and a state's policy manual or regulations, then we can test if a model — when given those sources — can derive the correct answer.
+      question: "According to Amanda Askell's quote, what is the correct approach to developing system prompts?"
+    assert:
+      - type: llm-rubric
+        value: "The answer should explain that you should write tests first, then find a system prompt that passes those tests - this is test-driven development"
+      - type: contains-any
+        value: ["test-driven", "tests first", "write tests", "passes them"]
+
+  # Level 6: Understanding domain-specific examples
+  - vars:
+      article: |
+        My SNAP sniff test: asset limits
+
+        The one example I've done time and again is asking about SNAP asset limits. Why this example? Because the question actually brings lots of nuance that is intrinsic to the SNAP domain!
+
+        I will usually ask two variations:
+        - "What is the SNAP asset limit?"
+        - "I want to apply for SNAP but I have $10,000 in the bank. Can I be eligible?"
+
+        What's the correct answer? That's where the nuance is.
+
+        Strictly speaking, the asset limit is $2,750, or $4,250 for a household with an elderly or disabled member. You can read that in federal policy.
+
+        But in terms of providing a meaningfully helpful answer to someone the most important detail is that most people applying for SNAP face no asset limit.
+
+        As a result of this, in reality only 13 states still impose asset limits. All other states have asset limits only in very limited circumstances.
+      question: "Why is the asset limit question considered a good 'sniff test' for evaluating AI models on SNAP topics?"
+    assert:
+      - type: llm-rubric
+        value: "The answer should explain that the question involves nuance - the federal policy says $2,750/$4,250 but the practical reality is that most people (in most states) face no asset limit. This tests whether models can balance strict accuracy with helpful, contextual information."
+      - type: contains-any
+        value: ["nuance", "context", "13 states", "most states", "federal", "practical"]
+
+  # Level 7: Analyzing tool/methodology descriptions
+  - vars:
+      article: |
+        We are using an open source tool called Promptfoo.
+
+        One of the top reasons I used Promptfoo for this is that I want creating evals to become more accessible to experts in topics that aren't software engineers.
+
+        And one of the very best features of Promptfoo is that you can run evals directly from a Google Sheet.
+
+        So an expert can write in a document and then we can run the eval with a simple command.
+
+        We asked each of 3 different AI models (OpenAI's GPT-4o-mini, Anthropic's Claude 3.5 Sonnet, and Google's Gemini 2.0 Flash Experimental) the same question: "What is the maximum benefit I can get as a single person from SNAP?" And then we checked to see if they included the correct answer of $292.
+
+        With many of our factual SNAP test cases, we can make them easily automated by using approaches like:
+        - Checking that they include a specific word or phrase
+        - Making the model return either YES or NO only
+        - Giving it a multiple choice answer
+      question: "What makes Promptfoo particularly suitable for domain experts who are not software engineers?"
+    assert:
+      - type: llm-rubric
+        value: "The answer should explain that Promptfoo allows running evals directly from Google Sheets, making it accessible to non-engineers, and supports simple automation approaches like checking for specific words or using YES/NO or multiple choice formats"
+      - type: contains-any
+        value: ["Google Sheet", "accessible", "non-engineer", "simple", "automat"]
+
+  # Level 8: Understanding complex evaluation concepts
+  - vars:
+      article: |
+        Step 4: automating more complicated evaluation by using models as "judges" of answers
+
+        It's a bit obvious that many ways in which we might decide a response is "good" in reality are more nuanced than "it contains this word or number."
+
+        Luckily, what we can do there is use the AI models themselves to evaluate answers on more complicated criteria.
+
+        For example, one common theme I hear from SNAP experts is that any tool that is SNAP client-facing should really emphasize plain, accessible language.
+
+        We can in fact build this into our evaluation!
+
+        By running this test, we use AI to determine whether the output was in accessible language.
+
+        For example, for one answer that the judge marked as a failure it provided this detail:
+
+        "The language and structure are too complex for a 6th grade reading level, including detailed terms like 'countable income sources', 'allowable deductions', and '130% of poverty level', which could be difficult for a younger audience to understand."
+
+        The ability to use AI models to themselves evaluate AI model output is highly valuable. It means that instead of having to rely on human inspection for the harder, messier criteria, we can automate much more of it — and as a result, perform much wider testing.
+      question: "Explain the concept of 'LLM as judge' and why it's valuable for evaluating complex criteria like accessible language."
+    assert:
+      - type: llm-rubric
+        value: "The answer should explain that LLM-as-judge uses AI models to evaluate other AI model outputs on complex criteria (like reading level) that can't be easily checked with simple string matching. This allows automation of nuanced evaluation criteria that would otherwise require human inspection."
+      - type: contains-any
+        value: ["AI", "judge", "evaluate", "complex", "automate", "nuanced"]
+
+  # Level 9: Synthesizing multiple concepts and implications
+  - vars:
+      article: |
+        A capability framework for measuring AI SNAP assistance
+
+        Based on both exploratory testing results and our framework around benefits navigation, we've been organizing our eval work around a number of specific capabilities.
+
+        1. Factual knowledge about SNAP
+        This involves testing for accurate knowledge of objective facts about SNAP that are important as the inputs to models providing effective SNAP guidance. This can include things like: Income limit values, Excluded income types, Deductible expenses, Eligible and ineligible purchases
+
+        2. Contextual understanding and sensitivity
+        Giving good SNAP guidance entails knowing a few contextual factors that answers are highly contingent upon. In SNAP, some specific examples of this include: State variation in policies and operations, State vs. county administration, Household characteristics for which rules vary
+
+        3. Practical navigation assistance
+        Assessing this capability involves evaluating models on how effective they are at dealing with actual navigation challenges that are common and high impact for SNAP clients. This includes things like: Applying and renewing benefits, Assessing eligibility likelihood, Changes and reporting, Denials, discontinuances, and escalation
+
+        4. Communication styles aligned to SNAP user needs
+        This dimension is somewhat different from the others because (a) it requires more end-user feedback to assess, and (b) it is more at the product / user experience level than at the model capability level. This looks at aspects of responses such as: Accessibility of language (comprehensible to someone reading with a 6th grade level understanding), Clear action to take, Giving the user choices (with considerations) where more appropriate than advice
+      question: "How does the four-capability framework demonstrate that evaluating AI for real-world assistance requires more than just factual accuracy?"
+    assert:
+      - type: llm-rubric
+        value: "The answer should explain that while factual knowledge (capability 1) is important, effective SNAP assistance also requires contextual understanding (state variations), practical navigation skills (helping with real processes), and appropriate communication style (accessible language, actionable advice). This shows evaluation must go beyond accuracy to include usefulness, context-awareness, and user experience."
+      - type: contains-any
+        value: ["factual", "context", "practical", "communication", "beyond accuracy", "real-world"]
+
+  # Level 10: Critical analysis and synthesis of methodology
+  - vars:
+      article: |
+        Our two different eval goals: benchmarking and product development
+
+        Goal 1: Benchmarking current base models on SNAP topics
+        Our first goal is simply to assess how well the most advanced models do on a variety of questions, prompts, and tests related to the SNAP domain. The eval test cases we write for this goal will generally be more objective, factual, and grounded in consensus (rather than being highly opinionated.) For example, we might be more tolerant of a general purpose model refusing to answer a particular question where an incorrect answer would have significant adverse consequences.
+
+        Benchmarking is useful for us for choosing what to build on top of, but it also more directly provides public value: if we can identify 10 concrete problems in ChatGPT or Google AI Search Result SNAP responses, it can help those very highly-used models improve.
+
+        Goal 2: Using an eval to guide product development
+        Other portions of our eval will be more specific and opinionated based on what we are trying to build, and how we plan to deploy it. For example, in our case, we might weight a refusal to answer much more negatively than a general benchmark because we seek to build the most helpful SNAP-specific assistant for clients.
+
+        By "opinionated" I mean that this evaluation will be specific to the goal of our product. While SNAP has lots of common knowledge, you can imagine the evaluations will be different for: "AI SNAP Policy Helper for Agency Eligibility Staff", vs. "AI SNAP Client Advocate for Limited English Proficiency Applicants"
+
+        Initial benchmarking results:
+        Here is how different models perform on our initial illustrative set of 25 cases:
+        - OpenAI GPT 4o Mini: 48%
+        - OpenAI o3 Mini: 56%
+        - Anthropic Claude Sonnet 3.5 (Oct 2024): 68%
+        - Anthropic Claude Sonnet 3.7: 68%
+        - OpenAI o1: 76%
+        - Google Gemini 2.0 Flash: 80%
+        - Google Gemini 2.5 Pro: 80%
+      question: "Analyze why the authors separate benchmarking from product development evals, and explain how the same model behavior (refusing to answer) might be evaluated differently in each context. What does this reveal about the complexity of AI evaluation?"
+    assert:
+      - type: llm-rubric
+        value: "The answer should demonstrate understanding that: (1) Benchmarking evals are objective and consensus-based to provide public value and inform general model selection - where refusals might be acceptable for safety; (2) Product-specific evals are opinionated and tailored to specific use cases - where refusals might be penalized because the product goal is maximum helpfulness; (3) This separation reveals that 'good' AI performance is context-dependent and requires different evaluation criteria based on deployment goals and user needs; (4) The same behavior can be positive or negative depending on the use case."
+      - type: javascript
+        value: "output.length > 200"  # Expect detailed analysis
+
+# Output configuration
+outputPath: results/basic_text_results.json

@@ -1,0 +1,49 @@
+{
+  "category": "text",
+  "name": "Creative Writing Tests",
+  "description": "Test creative writing and text generation capabilities",
+  "tests": [
+    {
+      "name": "Short Story Opening",
+      "prompt": "Write an engaging opening paragraph for a science fiction story set on a space station.",
+      "expected_output": "The artificial gravity failed at 0347 hours, and Lieutenant Sarah Chen found herself floating helplessly in the corridor as alarms blared throughout Station Alpha. Red emergency lights cast eerie shadows on the metal walls, and she could hear the distant hiss of atmosphere venting into space. Something was very wrong.",
+      "difficulty": "medium",
+      "tags": ["creative_writing", "narrative", "science_fiction"],
+      "evaluation_prompt": "Evaluate the creativity, engagement level, and genre appropriateness of the opening paragraph.",
+      "evaluation_criteria": {
+        "creativity": "Is the opening creative and original?",
+        "engagement": "Does it hook the reader effectively?",
+        "genre_appropriateness": "Does it fit the science fiction genre?",
+        "writing_quality": "Is the prose well-written?"
+      }
+    },
+    {
+      "name": "Product Description",
+      "prompt": "Write a compelling product description for a revolutionary new smartphone with advanced AI capabilities.",
+      "expected_output": "Introducing the future of mobile technology: the AI-powered smartphone that adapts to your life. With its advanced neural processing unit, this device learns your habits, anticipates your needs, and seamlessly integrates with your daily routine. From professional photography enhanced by AI to intelligent battery management that ensures all-day power, experience technology that thinks ahead so you don't have to.",
+      "difficulty": "easy",
+      "tags": ["marketing", "persuasive_writing", "technology"],
+      "evaluation_prompt": "Assess the persuasiveness, clarity, and marketing effectiveness of the product description.",
+      "evaluation_criteria": {
+        "persuasiveness": "Is the description compelling and convincing?",
+        "clarity": "Is the message clear and easy to understand?",
+        "feature_highlight": "Are the key features effectively highlighted?",
+        "target_audience": "Does it appeal to the intended audience?"
+      }
+    },
+    {
+      "name": "Email Response",
+      "prompt": "Write a professional email response to a customer complaint about a delayed order, showing empathy and providing a solution.",
+      "expected_output": "Dear [Customer Name],\n\nI sincerely apologize for the delay with your recent order #12345. I understand how frustrating this must be, especially when you were counting on receiving your items by the expected date.\n\nI've personally reviewed your order status and can confirm that it will ship today via expedited delivery at no additional cost to you. You should receive it by [date]. As an apology for this inconvenience, I'm also including a 20% discount on your next purchase.\n\nThank you for your patience and continued trust in our service. Please don't hesitate to contact me directly if you have any other concerns.\n\nBest regards,\n[Name]",
+      "difficulty": "medium",
+      "tags": ["professional_writing", "customer_service", "empathy"],
+      "evaluation_prompt": "Evaluate the professionalism, empathy, and solution-oriented approach of the email response.",
+      "evaluation_criteria": {
+        "professionalism": "Is the tone professional and appropriate?",
+        "empathy": "Does the response show understanding and empathy?",
+        "solution_oriented": "Does it provide a clear solution?",
+        "customer_retention": "Is it likely to maintain customer loyalty?"
+      }
+    }
+  ]
+}

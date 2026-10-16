@@ -1,0 +1,6 @@
+# Python dependencies for promptfoo CLI integration
+# These are already included in the main project requirements.txt
+# This file is for reference only
+
+requests>=2.31.0       # For API calls (Ollama health check)
+pyyaml>=6.0            # For parsing YAML configs (if needed)

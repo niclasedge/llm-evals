@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "scenario_count": 6
+  },
+  "scenarios": [
+    {
+      "name": "light_load",
+      "description": "Light concurrent load testing",
+      "concurrent_users": 2,
+      "duration_minutes": 1,
+      "ramp_up_time_seconds": 10,
+      "test_categories": ["simple"],
+      "expected_avg_response_ms": 100
+    },
+    {
+      "name": "moderate_load",
+      "description": "Moderate concurrent load testing",
+      "concurrent_users": 5,
+      "duration_minutes": 2,
+      "ramp_up_time_seconds": 30,
+      "test_categories": ["simple", "medium"],
+      "expected_avg_response_ms": 300
+    },
+    {
+      "name": "heavy_load",
+      "description": "Heavy concurrent load testing",
+      "concurrent_users": 10,
+      "duration_minutes": 3,
+      "ramp_up_time_seconds": 60,
+      "test_categories": ["simple", "medium", "complex"],
+      "expected_avg_response_ms": 800
+    },
+    {
+      "name": "stress_test",
+      "description": "Stress testing to find breaking point",
+      "concurrent_users": 20,
+      "duration_minutes": 5,
+      "ramp_up_time_seconds": 120,
+      "test_categories": ["medium", "complex"],
+      "expected_avg_response_ms": 2000
+    },
+    {
+      "name": "endurance_test",
+      "description": "Long-running endurance testing",
+      "concurrent_users": 3,
+      "duration_minutes": 10,
+      "ramp_up_time_seconds": 30,
+      "test_categories": ["simple", "medium"],
+      "expected_avg_response_ms": 200
+    },
+    {
+      "name": "spike_test",
+      "description": "Sudden load spike testing",
+      "concurrent_users": 15,
+      "duration_minutes": 1,
+      "ramp_up_time_seconds": 5,
+      "test_categories": ["simple"],
+      "expected_avg_response_ms": 500
+    }
+  ]
+}

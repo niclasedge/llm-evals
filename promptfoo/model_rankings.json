@@ -1,0 +1,651 @@
+{
+  "generated_at": 1760813734.0068898,
+  "total_models": 34,
+  "rankings": [
+    {
+      "rank": 1,
+      "model": "Claude Sonnet 4.5",
+      "pass_rate": 87.1,
+      "avg_score": 0.98,
+      "total_tests": 31,
+      "passed": 27,
+      "failed": 4,
+      "errors": 0,
+      "avg_latency_ms": 1.2,
+      "total_tokens": 18693,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 2,
+      "model": "Gemini 2.5 Flash Lite",
+      "pass_rate": 84.85,
+      "avg_score": 0.95,
+      "total_tests": 33,
+      "passed": 28,
+      "failed": 5,
+      "errors": 0,
+      "avg_latency_ms": 1.3,
+      "total_tokens": 20486,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 3,
+      "model": "Qwen3 8B (Local)",
+      "pass_rate": 83.87,
+      "avg_score": 0.96,
+      "total_tests": 31,
+      "passed": 26,
+      "failed": 5,
+      "errors": 0,
+      "avg_latency_ms": 2.1,
+      "total_tokens": 54016,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 4,
+      "model": "Llama 4 Scout (Free)",
+      "pass_rate": 78.79,
+      "avg_score": 0.92,
+      "total_tests": 33,
+      "passed": 26,
+      "failed": 7,
+      "errors": 0,
+      "avg_latency_ms": 1.6,
+      "total_tokens": 14848,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 5,
+      "model": "Gemini 2.5 Flash",
+      "pass_rate": 78.79,
+      "avg_score": 0.92,
+      "total_tests": 33,
+      "passed": 26,
+      "failed": 7,
+      "errors": 0,
+      "avg_latency_ms": 1.7,
+      "total_tokens": 19019,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 6,
+      "model": "DeepSeek R1 (Free)",
+      "pass_rate": 78.57,
+      "avg_score": 0.9,
+      "total_tests": 28,
+      "passed": 22,
+      "failed": 5,
+      "errors": 1,
+      "avg_latency_ms": 22639.8,
+      "total_tokens": 23583,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 7,
+      "model": "DeepSeek R1 Distill Llama 70B (Free)",
+      "pass_rate": 78.57,
+      "avg_score": 0.88,
+      "total_tests": 28,
+      "passed": 22,
+      "failed": 4,
+      "errors": 2,
+      "avg_latency_ms": 1.6,
+      "total_tokens": 19628,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 8,
+      "model": "Gemma3 4B (Local)",
+      "pass_rate": 77.42,
+      "avg_score": 0.95,
+      "total_tests": 31,
+      "passed": 24,
+      "failed": 7,
+      "errors": 0,
+      "avg_latency_ms": 1.5,
+      "total_tokens": 14186,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 9,
+      "model": "Phi-4 Reasoning (Local)",
+      "pass_rate": 77.42,
+      "avg_score": 0.83,
+      "total_tests": 31,
+      "passed": 24,
+      "failed": 2,
+      "errors": 5,
+      "avg_latency_ms": 255049.6,
+      "total_tokens": 41814,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 10,
+      "model": "Llama 4 Maverick (Free)",
+      "pass_rate": 75.76,
+      "avg_score": 0.95,
+      "total_tests": 33,
+      "passed": 25,
+      "failed": 8,
+      "errors": 0,
+      "avg_latency_ms": 1.4,
+      "total_tokens": 14325,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 11,
+      "model": "DeepSeek R1 8B (Local)",
+      "pass_rate": 74.19,
+      "avg_score": 0.91,
+      "total_tests": 31,
+      "passed": 23,
+      "failed": 8,
+      "errors": 0,
+      "avg_latency_ms": 2.3,
+      "total_tokens": 55951,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 12,
+      "model": "GPT-5 Mini",
+      "pass_rate": 72.73,
+      "avg_score": 0.86,
+      "total_tests": 33,
+      "passed": 24,
+      "failed": 9,
+      "errors": 0,
+      "avg_latency_ms": 1.5,
+      "total_tokens": 26343,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 13,
+      "model": "Qwen2.5 7B (Local)",
+      "pass_rate": 71.43,
+      "avg_score": 0.94,
+      "total_tests": 21,
+      "passed": 15,
+      "failed": 6,
+      "errors": 0,
+      "avg_latency_ms": 2.3,
+      "total_tokens": 10736,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 14,
+      "model": "Gemma 3 27B IT (Free)",
+      "pass_rate": 69.7,
+      "avg_score": 0.9,
+      "total_tests": 33,
+      "passed": 23,
+      "failed": 10,
+      "errors": 0,
+      "avg_latency_ms": 1.1,
+      "total_tokens": 9439,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 15,
+      "model": "Claude Haiku 4.5",
+      "pass_rate": 69.7,
+      "avg_score": 0.85,
+      "total_tests": 33,
+      "passed": 23,
+      "failed": 10,
+      "errors": 0,
+      "avg_latency_ms": 1.6,
+      "total_tokens": 18833,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 16,
+      "model": "Gemini 2.0 Flash Exp (Free)",
+      "pass_rate": 69.7,
+      "avg_score": 0.88,
+      "total_tests": 33,
+      "passed": 23,
+      "failed": 9,
+      "errors": 1,
+      "avg_latency_ms": 15280.3,
+      "total_tokens": 15081,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 17,
+      "model": "Qwen2.5 Coder 7B (Local)",
+      "pass_rate": 67.74,
+      "avg_score": 0.91,
+      "total_tests": 31,
+      "passed": 21,
+      "failed": 10,
+      "errors": 0,
+      "avg_latency_ms": 2.0,
+      "total_tokens": 13794,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 18,
+      "model": "Qwen3 4B (Local)",
+      "pass_rate": 66.67,
+      "avg_score": 0.92,
+      "total_tests": 21,
+      "passed": 14,
+      "failed": 7,
+      "errors": 0,
+      "avg_latency_ms": 1.6,
+      "total_tokens": 45294,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 19,
+      "model": "GPT-OSS 20B (Local)",
+      "pass_rate": 66.67,
+      "avg_score": 0.88,
+      "total_tests": 21,
+      "passed": 14,
+      "failed": 7,
+      "errors": 0,
+      "avg_latency_ms": 1.8,
+      "total_tokens": 41079,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 20,
+      "model": "SmolLM2 1.7B (Local)",
+      "pass_rate": 62.5,
+      "avg_score": 0.85,
+      "total_tests": 16,
+      "passed": 10,
+      "failed": 6,
+      "errors": 0,
+      "avg_latency_ms": 0.9,
+      "total_tokens": 5972,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 21,
+      "model": "Mistral 7B (Local)",
+      "pass_rate": 62.5,
+      "avg_score": 0.79,
+      "total_tests": 16,
+      "passed": 10,
+      "failed": 6,
+      "errors": 0,
+      "avg_latency_ms": 1.4,
+      "total_tokens": 5827,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 22,
+      "model": "Llama 3.2 3B (Local)",
+      "pass_rate": 61.9,
+      "avg_score": 0.86,
+      "total_tests": 21,
+      "passed": 13,
+      "failed": 8,
+      "errors": 0,
+      "avg_latency_ms": 1.1,
+      "total_tokens": 9948,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 23,
+      "model": "Gemma3 27B QAT (Local)",
+      "pass_rate": 61.9,
+      "avg_score": 0.88,
+      "total_tests": 21,
+      "passed": 13,
+      "failed": 7,
+      "errors": 1,
+      "avg_latency_ms": 75286.6,
+      "total_tokens": 10035,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 24,
+      "model": "Llama 3.2 1B (Local)",
+      "pass_rate": 56.25,
+      "avg_score": 0.77,
+      "total_tests": 16,
+      "passed": 9,
+      "failed": 7,
+      "errors": 0,
+      "avg_latency_ms": 1.2,
+      "total_tokens": 6338,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 25,
+      "model": "DeepSeek Chat v3 (Free)",
+      "pass_rate": 54.55,
+      "avg_score": 0.68,
+      "total_tests": 33,
+      "passed": 18,
+      "failed": 6,
+      "errors": 9,
+      "avg_latency_ms": 149721.6,
+      "total_tokens": 11182,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 26,
+      "model": "GPT-5 Nano",
+      "pass_rate": 51.52,
+      "avg_score": 0.72,
+      "total_tests": 33,
+      "passed": 17,
+      "failed": 16,
+      "errors": 0,
+      "avg_latency_ms": 1.5,
+      "total_tokens": 32413,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 27,
+      "model": "Gemma3 1B (Local)",
+      "pass_rate": 44.44,
+      "avg_score": 0.74,
+      "total_tests": 18,
+      "passed": 8,
+      "failed": 10,
+      "errors": 0,
+      "avg_latency_ms": 1.4,
+      "total_tokens": 5034,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 28,
+      "model": "Gemini 2.5 Pro",
+      "pass_rate": 36.36,
+      "avg_score": 0.61,
+      "total_tests": 33,
+      "passed": 12,
+      "failed": 21,
+      "errors": 0,
+      "avg_latency_ms": 1.2,
+      "total_tokens": 33647,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-wUG-2025-10-19T07:23:24",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 29,
+      "model": "QwQ 32B (Free)",
+      "pass_rate": 0.0,
+      "avg_score": 0.0,
+      "total_tests": 28,
+      "passed": 0,
+      "failed": 0,
+      "errors": 28,
+      "avg_latency_ms": 147.4,
+      "total_tokens": 0,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 30,
+      "model": "Llama 3.1 Nemotron Ultra 253B (Free)",
+      "pass_rate": 0.0,
+      "avg_score": 0.0,
+      "total_tests": 28,
+      "passed": 0,
+      "failed": 0,
+      "errors": 28,
+      "avg_latency_ms": 148.3,
+      "total_tokens": 0,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 31,
+      "model": "DeepSeek R1 Distill Qwen 32B (Free)",
+      "pass_rate": 0.0,
+      "avg_score": 0.0,
+      "total_tests": 28,
+      "passed": 0,
+      "failed": 0,
+      "errors": 28,
+      "avg_latency_ms": 150.5,
+      "total_tokens": 0,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 32,
+      "model": "Gemini 2.5 Pro Exp (Free)",
+      "pass_rate": 0.0,
+      "avg_score": 0.0,
+      "total_tests": 28,
+      "passed": 0,
+      "failed": 0,
+      "errors": 28,
+      "avg_latency_ms": 154.5,
+      "total_tokens": 0,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 33,
+      "model": "DeepSeek R1 Zero (Free)",
+      "pass_rate": 0.0,
+      "avg_score": 0.0,
+      "total_tests": 28,
+      "passed": 0,
+      "failed": 0,
+      "errors": 28,
+      "avg_latency_ms": 181.8,
+      "total_tokens": 0,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    },
+    {
+      "rank": 34,
+      "model": "Gemini 2.0 Flash Thinking (Free)",
+      "pass_rate": 0.0,
+      "avg_score": 0.0,
+      "total_tests": 28,
+      "passed": 0,
+      "failed": 0,
+      "errors": 28,
+      "avg_latency_ms": 182.1,
+      "total_tokens": 0,
+      "total_cost": 0.0,
+      "evaluations": [
+        "eval-NbO-2025-10-19T08:26:27",
+        "eval-BAn-2025-10-19T08:37:20",
+        "eval-rMp-2025-10-19T08:53:00",
+        "eval-7PP-2025-10-19T09:14:01"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,420 @@
+# LLM Model Mapping Configuration
+# This file defines the unified configuration for all LLM providers and models
+
+providers:
+  openrouter:
+    base_url: "https://openrouter.ai/api/v1"
+    api_key_env: "OPENROUTER_API_KEY"
+    models:
+      # Main text models
+      - name: "llama-3.3-8b"
+        model_id: "meta-llama/llama-3.3-8b-instruct:free"
+        aliases: ["llama3", "llama3-8b", "llama33"]
+        capabilities: ["text", "code"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 8192
+          description: "Meta's Llama 3.3 8B parameter model"
+      
+      - name: "gemma-3-1b"
+        model_id: "google/gemma-3-1b-it:free"
+        aliases: ["gemma1b", "gemma-1b", "gemma3-1b"]
+        capabilities: ["text"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 8192
+          description: "Google's Gemma 3 1B parameter model"
+      
+      - name: "gemma-3-4b"
+        model_id: "google/gemma-3-4b-it:free"
+        aliases: ["gemma4b", "gemma-4b", "gemma3-4b"]
+        capabilities: ["text"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 8192
+          description: "Google's Gemma 3 4B parameter model"
+      
+      - name: "gemma-3-12b"
+        model_id: "google/gemma-3-12b-it:free"
+        aliases: ["gemma12b", "gemma-12b", "gemma3-12b"]
+        capabilities: ["text"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 8192
+          description: "Google's Gemma 3 12B parameter model"
+      
+      - name: "gemma-3-27b"
+        model_id: "google/gemma-3-27b-it:free"
+        aliases: ["gemma27b", "gemma-27b", "gemma3-27b"]
+        capabilities: ["text"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 8192
+          description: "Google's Gemma 3 27B parameter model"
+      
+      # Vision models
+      - name: "llama-3.2-11b-vision"
+        model_id: "meta-llama/llama-3.2-11b-vision-instruct:free"
+        aliases: ["llama3-vision", "llama-vision", "llama32-vision"]
+        capabilities: ["text", "vision"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 8192
+          description: "Meta's Llama 3.2 11B vision model"
+      
+      - name: "llama-3.2-90b-vision"
+        model_id: "meta-llama/llama-3.2-90b-vision-instruct:free"
+        aliases: ["llama3-vision-90b", "llama-vision-90b", "llama32-vision-90b"]
+        capabilities: ["text", "vision"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 8192
+          description: "Meta's Llama 3.2 90B vision model"
+      
+      - name: "gemma-2-9b"
+        model_id: "google/gemma-2-9b-it:free"
+        aliases: ["gemma2-9b", "gemma9b"]
+        capabilities: ["text"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 8192
+          description: "Google's Gemma 2 9B parameter model"
+      
+      - name: "gemma-2-27b"
+        model_id: "google/gemma-2-27b-it:free"
+        aliases: ["gemma2-27b", "gemma27b"]
+        capabilities: ["text"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 8192
+          description: "Google's Gemma 2 27B parameter model"
+      
+      - name: "qwen2-vl-7b"
+        model_id: "qwen/qwen2-vl-7b-instruct:free"
+        aliases: ["qwen-vision-7b", "qwen7b-vision", "qwen2-vision-7b"]
+        capabilities: ["text", "vision"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 8192
+          description: "Qwen2 VL 7B vision model"
+      
+      - name: "qwen2-vl-72b"
+        model_id: "qwen/qwen2-vl-72b-instruct:free"
+        aliases: ["qwen-vision-72b", "qwen72b-vision", "qwen2-vision-72b"]
+        capabilities: ["text", "vision"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 8192
+          description: "Qwen2 VL 72B vision model"
+      
+      # Microsoft Phi-4 Models
+      - name: "phi-4-reasoning"
+        model_id: "microsoft/phi-4-reasoning:free"
+        aliases: ["phi4", "phi-4", "phi4-reasoning"]
+        capabilities: ["text", "reasoning", "math"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 16384
+          description: "Microsoft's Phi-4 reasoning model"
+      
+      - name: "phi-4-reasoning-plus"
+        model_id: "microsoft/phi-4-reasoning-plus:free"
+        aliases: ["phi4-plus", "phi-4-plus", "phi4-reasoning-plus"]
+        capabilities: ["text", "reasoning", "math"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 16384
+          description: "Microsoft's Phi-4 reasoning plus model"
+      
+      # DeepSeek Models
+      - name: "deepseek-chat-v3"
+        model_id: "deepseek/deepseek-chat-v3-0324:free"
+        aliases: ["deepseek", "deepseek-v3", "deepseek-chat"]
+        capabilities: ["text", "code", "reasoning"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 32768
+          description: "DeepSeek Chat v3 model with strong coding capabilities"
+      
+      - name: "deepseek-r1-zero"
+        model_id: "deepseek/deepseek-r1-zero:free"
+        aliases: ["deepseek-r1", "deepseek-zero", "r1-zero"]
+        capabilities: ["text", "reasoning", "code"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 32768
+          description: "DeepSeek R1 Zero model with advanced reasoning"
+      
+      # Mistral Devstral
+      - name: "devstral-small"
+        model_id: "mistralai/devstral-small:free"
+        aliases: ["devstral", "mistral-devstral", "devstral-small"]
+        capabilities: ["text", "code"]
+        free: true
+        enabled: true
+        metadata:
+          context_length: 32768
+          description: "Mistral Devstral Small model optimized for code"
+
+  ollama:
+    base_url: "http://localhost:11434"
+    models:
+      # Recommended models from Issue #16
+      - name: "llama3.3-8b-local"
+        model_id: "llama3.3:8b"
+        aliases: ["llama33-8b", "llama3.3-local", "llama33-local"]
+        capabilities: ["text", "code"]
+        free: true
+        enabled: true
+        metadata:
+          description: "Local Llama 3.3 8B model via Ollama"
+      
+      - name: "gemma3-27b-local"
+        model_id: "gemma3:27b"
+        aliases: ["gemma3-27b", "gemma3-27b-local"]
+        capabilities: ["text", "reasoning"]
+        free: true
+        enabled: true
+        metadata:
+          description: "Local Gemma 3 27B model via Ollama"
+      
+      - name: "mistral-small3.2-local"
+        model_id: "mistral-small3.2"
+        aliases: ["mistral-small", "mistral-small-local"]
+        capabilities: ["text", "code"]
+        free: true
+        enabled: true
+        metadata:
+          description: "Local Mistral Small 3.2 model via Ollama"
+      
+      - name: "phi4-reasoning-local"
+        model_id: "phi4-reasoning"
+        aliases: ["phi4-local", "phi4-reasoning-local"]
+        capabilities: ["text", "reasoning", "math"]
+        free: true
+        enabled: true
+        metadata:
+          description: "Local Phi-4 reasoning model via Ollama"
+      
+      - name: "devstral-local"
+        model_id: "devstral"
+        aliases: ["devstral-local", "mistral-dev"]
+        capabilities: ["text", "code"]
+        free: true
+        enabled: true
+        metadata:
+          description: "Local Devstral code model via Ollama"
+      
+      - name: "deepseek-r1-8b-local"
+        model_id: "deepseek-r1:8b"
+        aliases: ["deepseek-r1-local", "deepseek-8b-local"]
+        capabilities: ["text", "reasoning", "code"]
+        free: true
+        enabled: true
+        metadata:
+          description: "Local DeepSeek R1 8B model via Ollama"
+      
+      # Legacy models (disabled by default)
+      - name: "llama3-local"
+        model_id: "llama3"
+        aliases: ["llama-local", "l3", "llama3-ollama"]
+        capabilities: ["text", "code"]
+        free: true
+        enabled: false
+        metadata:
+          description: "Local Llama 3 model via Ollama"
+      
+      - name: "mistral-local"
+        model_id: "mistral"
+        aliases: ["mistral-local", "mistral-ollama"]
+        capabilities: ["text", "code"]
+        free: true
+        enabled: false
+        metadata:
+          description: "Local Mistral model via Ollama"
+      
+      - name: "llava-local"
+        model_id: "llava:latest"
+        aliases: ["llava", "llava-vision", "llava-ollama"]
+        capabilities: ["text", "vision"]
+        free: true
+        enabled: false
+        metadata:
+          description: "Local LLaVA vision model via Ollama"
+      
+      - name: "llava-7b-local"
+        model_id: "llava:7b"
+        aliases: ["llava7b", "llava-7b"]
+        capabilities: ["text", "vision"]
+        free: true
+        enabled: false
+        metadata:
+          description: "Local LLaVA 7B vision model via Ollama"
+      
+      - name: "llava-13b-local"
+        model_id: "llava:13b"
+        aliases: ["llava13b", "llava-13b"]
+        capabilities: ["text", "vision"]
+        free: true
+        enabled: false
+        metadata:
+          description: "Local LLaVA 13B vision model via Ollama"
+      
+      - name: "bakllava-local"
+        model_id: "bakllava:latest"
+        aliases: ["bakllava", "bakllava-vision"]
+        capabilities: ["text", "vision"]
+        free: true
+        enabled: false
+        metadata:
+          description: "Local BakLLaVA vision model via Ollama"
+      
+      - name: "moondream-local"
+        model_id: "moondream:latest"
+        aliases: ["moondream", "moondream-vision"]
+        capabilities: ["text", "vision"]
+        free: true
+        enabled: false
+        metadata:
+          description: "Local Moondream vision model via Ollama"
+
+  openai:
+    base_url: "https://api.openai.com/v1"
+    api_key_env: "OPENAI_API_KEY"
+    models:
+      - name: "gpt-4o"
+        model_id: "gpt-4o"
+        aliases: ["4o", "gpt4o"]
+        capabilities: ["text", "vision", "code"]
+        free: false
+        enabled: false
+        metadata:
+          context_length: 128000
+          description: "OpenAI's GPT-4o model"
+      
+      - name: "gpt-4o-mini"
+        model_id: "gpt-4o-mini"
+        aliases: ["4o-mini", "gpt4o-mini"]
+        capabilities: ["text", "vision", "code"]
+        free: false
+        enabled: false
+        metadata:
+          context_length: 128000
+          description: "OpenAI's GPT-4o mini model"
+      
+      - name: "gpt-3.5-turbo"
+        model_id: "gpt-3.5-turbo"
+        aliases: ["3.5", "gpt35", "turbo"]
+        capabilities: ["text", "code"]
+        free: false
+        enabled: false
+        metadata:
+          context_length: 16385
+          description: "OpenAI's GPT-3.5 Turbo model"
+
+# Model categories for easier filtering
+categories:
+  text_models:
+    - "llama-3.3-8b"
+    - "gemma-3-1b"
+    - "gemma-3-4b"
+    - "gemma-3-12b"
+    - "gemma-3-27b"
+    - "gemma-2-9b"
+    - "gemma-2-27b"
+    - "phi-4-reasoning"
+    - "phi-4-reasoning-plus"
+    - "deepseek-chat-v3"
+    - "deepseek-r1-zero"
+    - "devstral-small"
+    - "llama3.3-8b-local"
+    - "gemma3-27b-local"
+    - "mistral-small3.2-local"
+    - "phi4-reasoning-local"
+    - "devstral-local"
+    - "deepseek-r1-8b-local"
+    - "llama3-local"
+    - "mistral-local"
+  
+  vision_models:
+    - "llama-3.2-11b-vision"
+    - "llama-3.2-90b-vision"
+    - "qwen2-vl-7b"
+    - "qwen2-vl-72b"
+    - "llava-local"
+    - "bakllava-local"
+    - "moondream-local"
+  
+  code_models:
+    - "llama-3.3-8b"
+    - "deepseek-chat-v3"
+    - "deepseek-r1-zero"
+    - "devstral-small"
+    - "llama3.3-8b-local"
+    - "mistral-small3.2-local"
+    - "devstral-local"
+    - "deepseek-r1-8b-local"
+    - "llama3-local"
+    - "mistral-local"
+  
+  reasoning_models:
+    - "phi-4-reasoning"
+    - "phi-4-reasoning-plus"
+    - "deepseek-chat-v3"
+    - "deepseek-r1-zero"
+    - "gemma3-27b-local"
+    - "phi4-reasoning-local"
+    - "deepseek-r1-8b-local"
+  
+  free_models:
+    - "llama-3.3-8b"
+    - "gemma-3-1b"
+    - "gemma-3-4b"
+    - "gemma-3-12b"
+    - "gemma-3-27b"
+    - "gemma-2-9b"
+    - "gemma-2-27b"
+    - "phi-4-reasoning"
+    - "phi-4-reasoning-plus"
+    - "deepseek-chat-v3"
+    - "deepseek-r1-zero"
+    - "devstral-small"
+    - "llama-3.2-11b-vision"
+    - "llama-3.2-90b-vision"
+    - "qwen2-vl-7b"
+    - "qwen2-vl-72b"
+    - "llama3.3-8b-local"
+    - "gemma3-27b-local"
+    - "mistral-small3.2-local"
+    - "phi4-reasoning-local"
+    - "devstral-local"
+    - "deepseek-r1-8b-local"
+    - "llama3-local"
+    - "mistral-local"
+    - "llava-local"
+    - "bakllava-local"
+    - "moondream-local"
+
+# Default models for different use cases
+defaults:
+  text_model: "llama3"
+  vision_model: "llama3-vision"
+  code_model: "llama3"
+  local_model: "llama3.3-8b-local"
+  free_model: "llama3"
+  reasoning_model: "phi4-reasoning-local"

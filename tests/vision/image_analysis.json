@@ -1,0 +1,52 @@
+{
+  "category": "vision",
+  "name": "Image Analysis Tests",
+  "description": "Test vision model capabilities for image understanding",
+  "tests": [
+    {
+      "name": "Object Detection",
+      "prompt": "Describe all the objects you can see in this image and their approximate locations.",
+      "expected_output": "I can see a cat sitting on a wooden table in the center of the image, a laptop computer to the left, a coffee mug in the upper right corner, and a potted plant in the background on the right side.",
+      "difficulty": "easy",
+      "tags": ["object_detection", "spatial_awareness", "description"],
+      "image_path": "test_images/objects_scene.jpg",
+      "evaluation_prompt": "Evaluate how accurately the model identifies objects and describes their locations in the image.",
+      "evaluation_criteria": {
+        "object_accuracy": "Are the objects correctly identified?",
+        "spatial_description": "Are the locations accurately described?",
+        "completeness": "Are all major objects mentioned?",
+        "detail_level": "Is the level of detail appropriate?"
+      }
+    },
+    {
+      "name": "Scene Understanding",
+      "prompt": "What is the overall scene or setting of this image? What activity might be taking place?",
+      "expected_output": "This appears to be a home office or study area. Someone might be working on a laptop while having coffee, with their cat keeping them company on the desk.",
+      "difficulty": "medium",
+      "tags": ["scene_understanding", "context", "inference"],
+      "image_path": "test_images/office_scene.jpg",
+      "evaluation_prompt": "Assess the model's ability to understand the broader context and make reasonable inferences about the scene.",
+      "evaluation_criteria": {
+        "scene_recognition": "Is the overall scene correctly identified?",
+        "contextual_inference": "Are the inferences about activities reasonable?",
+        "coherence": "Is the description coherent and logical?",
+        "depth_of_analysis": "Does the response go beyond surface-level observation?"
+      }
+    },
+    {
+      "name": "Text Recognition (OCR)",
+      "prompt": "Read and transcribe any text visible in this image.",
+      "expected_output": "WELCOME TO OUR COFFEE SHOP\nOpen Daily 7AM - 9PM\nFree WiFi Available",
+      "difficulty": "medium",
+      "tags": ["ocr", "text_recognition", "reading"],
+      "image_path": "test_images/sign_text.jpg",
+      "evaluation_prompt": "Evaluate the accuracy of text recognition and transcription from the image.",
+      "evaluation_criteria": {
+        "text_accuracy": "Is the text transcribed accurately?",
+        "completeness": "Is all visible text captured?",
+        "formatting": "Is the text formatting preserved appropriately?",
+        "clarity": "Is the transcription clear and readable?"
+      }
+    }
+  ]
+}

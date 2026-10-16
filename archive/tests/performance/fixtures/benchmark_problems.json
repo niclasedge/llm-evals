@@ -1,0 +1,99 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "problem_count": 15,
+    "categories": ["simple", "medium", "complex"]
+  },
+  "problems": [
+    {
+      "id": "simple_1",
+      "category": "simple",
+      "title": "Hello World",
+      "description": "Write a function that returns \"Hello, World!\"",
+      "input_format": "No input required",
+      "output_format": "String: \"Hello, World!\"",
+      "expected_complexity": "O(1)",
+      "estimated_time_ms": 10
+    },
+    {
+      "id": "simple_2", 
+      "category": "simple",
+      "title": "Add Two Numbers",
+      "description": "Write a function that adds two integers",
+      "input_format": "Two integers a and b",
+      "output_format": "Integer: a + b",
+      "expected_complexity": "O(1)",
+      "estimated_time_ms": 15
+    },
+    {
+      "id": "simple_3",
+      "category": "simple", 
+      "title": "String Length",
+      "description": "Write a function that returns the length of a string",
+      "input_format": "String s",
+      "output_format": "Integer: length of s",
+      "expected_complexity": "O(1)",
+      "estimated_time_ms": 12
+    },
+    {
+      "id": "medium_1",
+      "category": "medium",
+      "title": "Fibonacci Sequence",
+      "description": "Calculate the nth Fibonacci number using recursion",
+      "input_format": "Integer n (0 <= n <= 30)",
+      "output_format": "Integer: nth Fibonacci number",
+      "expected_complexity": "O(2^n)",
+      "estimated_time_ms": 500
+    },
+    {
+      "id": "medium_2",
+      "category": "medium",
+      "title": "Binary Search",
+      "description": "Implement binary search on a sorted array",
+      "input_format": "Sorted array and target value",
+      "output_format": "Integer: index of target or -1",
+      "expected_complexity": "O(log n)",
+      "estimated_time_ms": 100
+    },
+    {
+      "id": "medium_3",
+      "category": "medium",
+      "title": "Palindrome Check",
+      "description": "Check if a string is a palindrome (case-insensitive)",
+      "input_format": "String s",
+      "output_format": "Boolean: true if palindrome",
+      "expected_complexity": "O(n)",
+      "estimated_time_ms": 200
+    },
+    {
+      "id": "complex_1",
+      "category": "complex", 
+      "title": "Graph Traversal",
+      "description": "Implement depth-first search on a graph",
+      "input_format": "Graph as adjacency list and start node",
+      "output_format": "List: nodes in DFS order",
+      "expected_complexity": "O(V + E)",
+      "estimated_time_ms": 1000
+    },
+    {
+      "id": "complex_2",
+      "category": "complex",
+      "title": "Dynamic Programming",
+      "description": "Solve 0/1 knapsack problem using dynamic programming",
+      "input_format": "Items with weights/values and capacity",
+      "output_format": "Integer: maximum value",
+      "expected_complexity": "O(nW)",
+      "estimated_time_ms": 2000
+    },
+    {
+      "id": "complex_3",
+      "category": "complex",
+      "title": "Sorting Algorithm",
+      "description": "Implement quicksort algorithm",
+      "input_format": "Array of integers",
+      "output_format": "Array: sorted integers",
+      "expected_complexity": "O(n log n)",
+      "estimated_time_ms": 800
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  ollama:
+    environment:
+      - OLLAMA_DEBUG=1
+    volumes:
+      - ./data/ollama:/root/.ollama
+
+  go-service:
+    build:
+      context: ./go-service
+      dockerfile: docker/Dockerfile
+      target: builder
+    environment:
+      - GIN_MODE=debug
+      - LOG_LEVEL=debug
+    volumes:
+      - ./go-service:/app
+      - go_data:/data
+    command: go run ./cmd/server
+
+  python-service:
+    build:
+      context: .
+      dockerfile: docker/python/Dockerfile.dev
+    environment:
+      - PYTHON_DEBUG=true
+      - LOG_LEVEL=debug
+      - ENABLE_RELOAD=true
+    volumes:
+      - .:/app
+      - python_data:/app/data
+      - test_results:/app/test_results
+      - ./logs:/app/logs
+    command: uvicorn src.features.unified_evaluation.endpoints:app --host 0.0.0.0 --port 8000 --reload
+
+  prometheus:
+    volumes:
+      - ./docker/prometheus/prometheus.dev.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+
+  grafana:
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=dev
+      - GF_USERS_ALLOW_SIGN_UP=true
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./docker/grafana/dev-dashboards:/etc/grafana/provisioning/dashboards
+      - ./docker/grafana/dev-datasources:/etc/grafana/provisioning/datasources

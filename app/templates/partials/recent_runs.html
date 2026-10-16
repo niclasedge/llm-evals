@@ -1,0 +1,30 @@
+<!-- Recent Test Runs Partial -->
+<div class="space-y-2">
+    {% for run in runs %}
+    <div class="flex items-center justify-between p-2 bg-base-100 rounded">
+        <div>
+            <div class="font-medium">{{ run.name }}</div>
+            <div class="text-xs opacity-70">
+                {{ run.created_at.strftime('%Y-%m-%d %H:%M') }}
+            </div>
+        </div>
+        <div class="flex items-center">
+            {% if run.status == 'completed' %}
+                <div class="badge badge-success badge-sm">{{ run.status }}</div>
+            {% elif run.status == 'running' %}
+                <div class="badge badge-warning badge-sm">{{ run.status }}</div>
+            {% elif run.status == 'failed' %}
+                <div class="badge badge-error badge-sm">{{ run.status }}</div>
+            {% else %}
+                <div class="badge badge-neutral badge-sm">{{ run.status }}</div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if not runs %}
+    <div class="text-center py-4 opacity-50">
+        No test runs yet
+    </div>
+    {% endif %}
+</div>

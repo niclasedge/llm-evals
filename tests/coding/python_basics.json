@@ -1,0 +1,48 @@
+{
+  "category": "coding",
+  "name": "Python Coding Tests",
+  "description": "Test Python programming capabilities",
+  "tests": [
+    {
+      "name": "Fibonacci Function",
+      "prompt": "Write a Python function that returns the nth Fibonacci number. Include both recursive and iterative solutions.",
+      "expected_output": "def fibonacci_recursive(n):\n    if n <= 1:\n        return n\n    return fibonacci_recursive(n-1) + fibonacci_recursive(n-2)\n\ndef fibonacci_iterative(n):\n    if n <= 1:\n        return n\n    a, b = 0, 1\n    for _ in range(2, n+1):\n        a, b = b, a + b\n    return b",
+      "difficulty": "medium",
+      "tags": ["recursion", "algorithms", "optimization"],
+      "evaluation_prompt": "Evaluate the code quality, correctness, and efficiency. Check if both recursive and iterative solutions are provided and working correctly.",
+      "evaluation_criteria": {
+        "correctness": "Does the code produce correct Fibonacci numbers?",
+        "completeness": "Are both recursive and iterative solutions provided?",
+        "code_quality": "Is the code well-structured and readable?",
+        "efficiency": "Are the time/space complexities reasonable?"
+      }
+    },
+    {
+      "name": "List Manipulation",
+      "prompt": "Write a Python function that takes a list of integers and returns a new list with only the even numbers, sorted in descending order.",
+      "expected_output": "def filter_even_desc(numbers):\n    return sorted([num for num in numbers if num % 2 == 0], reverse=True)",
+      "difficulty": "easy",
+      "tags": ["list_comprehension", "filtering", "sorting"],
+      "evaluation_prompt": "Assess the solution for correctness, pythonic style, and efficiency.",
+      "evaluation_criteria": {
+        "correctness": "Does the function correctly filter even numbers and sort them?",
+        "pythonic_style": "Does the code use Python idioms effectively?",
+        "conciseness": "Is the solution appropriately concise?"
+      }
+    },
+    {
+      "name": "Class Design",
+      "prompt": "Create a Python class called 'BankAccount' with methods to deposit, withdraw, and check balance. Include proper error handling.",
+      "expected_output": "class BankAccount:\n    def __init__(self, initial_balance=0):\n        if initial_balance < 0:\n            raise ValueError('Initial balance cannot be negative')\n        self._balance = initial_balance\n    \n    def deposit(self, amount):\n        if amount <= 0:\n            raise ValueError('Deposit amount must be positive')\n        self._balance += amount\n    \n    def withdraw(self, amount):\n        if amount <= 0:\n            raise ValueError('Withdrawal amount must be positive')\n        if amount > self._balance:\n            raise ValueError('Insufficient funds')\n        self._balance -= amount\n    \n    def get_balance(self):\n        return self._balance",
+      "difficulty": "medium",
+      "tags": ["oop", "error_handling", "encapsulation"],
+      "evaluation_prompt": "Evaluate the class design, including proper encapsulation, error handling, and method implementation.",
+      "evaluation_criteria": {
+        "class_design": "Is the class well-designed with appropriate methods?",
+        "error_handling": "Are edge cases and errors properly handled?",
+        "encapsulation": "Is data properly encapsulated?",
+        "functionality": "Do all methods work as expected?"
+      }
+    }
+  ]
+}

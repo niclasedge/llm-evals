@@ -1,0 +1,191 @@
+<div class="overflow-x-auto">
+    <table class="table table-zebra w-full">
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Provider</th>
+                <th>Status</th>
+                <th>Capabilities</th>
+                <th>Reasoning</th>
+                <th>Coding</th>
+                <th>Text Gen</th>
+                <th>Vision</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for model in models %}
+            <tr class="hover">
+                <td>
+                    <div class="flex items-center space-x-2">
+                        <div class="avatar placeholder">
+                            <div class="bg-neutral-focus text-neutral-content rounded-full w-8">
+                                <span class="text-xs">
+                                    {% if model.provider_name == 'ollama' %}🏠
+                                    {% elif model.provider_name == 'openrouter' %}🌐
+                                    {% else %}☁️{% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="font-bold text-sm">{{ model.name[:25] }}{% if model.name|length > 25 %}...{% endif %}</div>
+                            <div class="text-xs opacity-50">{{ model.model_id[:30] }}{% if model.model_id|length > 30 %}...{% endif %}</div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="badge badge-outline badge-sm">
+                        {{ model.provider_name.title() }}
+                    </div>
+                </td>
+                <td>
+                    {% if model.is_enabled %}
+                        <div class="badge badge-success badge-sm">✅ Enabled</div>
+                    {% else %}
+                        <div class="badge badge-error badge-sm">❌ Disabled</div>
+                    {% endif %}
+                    {% if model.is_free %}
+                        <div class="badge badge-info badge-sm mt-1">Free</div>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="flex flex-wrap gap-1">
+                        {% for capability in model.capabilities %}
+                            <div class="badge badge-ghost badge-xs">{{ capability }}</div>
+                        {% endfor %}
+                    </div>
+                </td>
+
+                <!-- Test Results -->
+                <td class="text-center">
+                    {% if model.test_results and model.test_results.reasoning %}
+                        {% set result = model.test_results.reasoning %}
+                        {% if result.status == 'completed' %}
+                            <div class="tooltip" data-tip="Score: {{ result.score }}/100">
+                                <div class="badge badge-success badge-sm">{{ result.score }}%</div>
+                            </div>
+                        {% elif result.status == 'running' %}
+                            <div class="loading loading-spinner loading-xs"></div>
+                        {% else %}
+                            <div class="badge badge-error badge-sm">❌</div>
+                        {% endif %}
+                    {% else %}
+                        <button class="btn btn-ghost btn-xs"
+                                hx-post="/api/tests/run"
+                                hx-vals='{"test_config_ids": [1], "model_ids": [{{ model.id }}], "run_name": "Reasoning Test"}'
+                                hx-target="closest td"
+                                hx-swap="innerHTML">
+                            Run
+                        </button>
+                    {% endif %}
+                </td>
+
+                <td class="text-center">
+                    {% if model.test_results and model.test_results.coding %}
+                        {% set result = model.test_results.coding %}
+                        {% if result.status == 'completed' %}
+                            <div class="tooltip" data-tip="Score: {{ result.score }}/100">
+                                <div class="badge badge-success badge-sm">{{ result.score }}%</div>
+                            </div>
+                        {% elif result.status == 'running' %}
+                            <div class="loading loading-spinner loading-xs"></div>
+                        {% else %}
+                            <div class="badge badge-error badge-sm">❌</div>
+                        {% endif %}
+                    {% else %}
+                        <button class="btn btn-ghost btn-xs"
+                                hx-post="/api/tests/run"
+                                hx-vals='{"test_config_ids": [2], "model_ids": [{{ model.id }}], "run_name": "Coding Test"}'
+                                hx-target="closest td"
+                                hx-swap="innerHTML">
+                            Run
+                        </button>
+                    {% endif %}
+                </td>
+
+                <td class="text-center">
+                    {% if model.test_results and model.test_results.text %}
+                        {% set result = model.test_results.text %}
+                        {% if result.status == 'completed' %}
+                            <div class="tooltip" data-tip="Score: {{ result.score }}/100">
+                                <div class="badge badge-success badge-sm">{{ result.score }}%</div>
+                            </div>
+                        {% elif result.status == 'running' %}
+                            <div class="loading loading-spinner loading-xs"></div>
+                        {% else %}
+                            <div class="badge badge-error badge-sm">❌</div>
+                        {% endif %}
+                    {% else %}
+                        <button class="btn btn-ghost btn-xs"
+                                hx-post="/api/tests/run"
+                                hx-vals='{"test_config_ids": [3], "model_ids": [{{ model.id }}], "run_name": "Text Test"}'
+                                hx-target="closest td"
+                                hx-swap="innerHTML">
+                            Run
+                        </button>
+                    {% endif %}
+                </td>
+
+                <td class="text-center">
+                    {% if model.test_results and model.test_results.vision %}
+                        {% set result = model.test_results.vision %}
+                        {% if result.status == 'completed' %}
+                            <div class="tooltip" data-tip="Score: {{ result.score }}/100">
+                                <div class="badge badge-success badge-sm">{{ result.score }}%</div>
+                            </div>
+                        {% elif result.status == 'running' %}
+                            <div class="loading loading-spinner loading-xs"></div>
+                        {% else %}
+                            <div class="badge badge-error badge-sm">❌</div>
+                        {% endif %}
+                    {% else %}
+                        {% if 'vision' in model.capabilities %}
+                        <button class="btn btn-ghost btn-xs"
+                                hx-post="/api/tests/run"
+                                hx-vals='{"test_config_ids": [4], "model_ids": [{{ model.id }}], "run_name": "Vision Test"}'
+                                hx-target="closest td"
+                                hx-swap="innerHTML">
+                            Run
+                        </button>
+                        {% else %}
+                        <span class="text-gray-400">N/A</span>
+                        {% endif %}
+                    {% endif %}
+                </td>
+
+                <td>
+                    <div class="dropdown dropdown-end">
+                        <label tabindex="0" class="btn btn-ghost btn-xs">⋮</label>
+                        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                            <li><a hx-post="/api/tests/run"
+                                   hx-vals='{"test_config_ids": [1,2,3,4], "model_ids": [{{ model.id }}], "run_name": "Full Test"}'>🚀 Run All Tests</a></li>
+                            <li><a href="/results?model_id={{ model.id }}">📊 View Results</a></li>
+                            {% if model.is_enabled %}
+                            <li><a hx-patch="/api/models/{{ model.id }}" hx-vals='{"is_enabled": false}'>❌ Disable</a></li>
+                            {% else %}
+                            <li><a hx-patch="/api/models/{{ model.id }}" hx-vals='{"is_enabled": true}'>✅ Enable</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="flex justify-between items-center mt-4 text-sm">
+    <div>
+        Showing {{ models|length }} models
+        ({{ models|selectattr("is_enabled")|list|length }} enabled,
+         {{ models|selectattr("is_free")|list|length }} free)
+    </div>
+    <div class="space-x-2">
+        <button class="btn btn-xs btn-primary"
+                hx-post="/api/tests/run"
+                hx-vals='{"test_config_ids": [1,2,3], "model_ids": [{% for model in models %}{% if model.is_enabled %}{{ model.id }}{% if not loop.last %},{% endif %}{% endif %}{% endfor %}], "run_name": "Batch Test All Models"}'>
+            🚀 Test All Enabled
+        </button>
+        <a href="/providers" class="btn btn-xs btn-outline">⚙️ Manage</a>
+    </div>
+</div>

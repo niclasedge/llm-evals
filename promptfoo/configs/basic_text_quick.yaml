@@ -1,0 +1,161 @@
+# Basic Text Generation Evaluation - Quick Test
+description: "Quick test of basic text generation with one model"
+
+# Define the prompts to test
+prompts:
+  - "Answer the following question concisely: {{question}}"
+
+# Sequential execution for Ollama models
+maxConcurrency: 1
+
+# Define the providers (models) to test - just one for quick testing
+providers:
+  - id: ollama:gemma3:1b
+    label: "Gemma3 1B (Local)"
+    config:
+      temperature: 0.7
+  # === OPENROUTER MODELS ===
+  # Note: Set OPENROUTER_API_KEY in .env file to use OpenRouter models
+
+  # Anthropic Claude
+  - id: openrouter:anthropic/claude-haiku-4.5
+    label: "Claude Haiku 4.5"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Google Gemini Models
+  - id: openrouter:google/gemini-2.5-flash-lite
+    label: "Gemini 2.5 Flash Lite"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.5-flash
+    label: "Gemini 2.5 Flash"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.5-pro
+    label: "Gemini 2.5 Pro"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # OpenAI GPT Models
+  - id: openrouter:openai/gpt-5-nano
+    label: "GPT-5 Nano"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:openai/gpt-5-mini
+    label: "GPT-5 Mini"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # === FREE OPENROUTER MODELS ===
+  # Note: Free models have rate limits (50 requests/day for new users, 1000/day with $10 credits)
+  # Using free models opts-in to data training
+
+  # Meta Llama Free Models
+  - id: openrouter:meta-llama/llama-4-maverick:free
+    label: "Llama 4 Maverick (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:meta-llama/llama-4-scout:free
+    label: "Llama 4 Scout (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # DeepSeek Free Models
+  - id: openrouter:deepseek/deepseek-chat-v3-0324:free
+    label: "DeepSeek Chat v3 (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:deepseek/deepseek-r1:free
+    label: "DeepSeek R1 (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:deepseek/deepseek-r1-zero:free
+    label: "DeepSeek R1 Zero (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:deepseek/deepseek-r1-distill-llama-70b:free
+    label: "DeepSeek R1 Distill Llama 70B (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:deepseek/deepseek-r1-distill-qwen-32b:free
+    label: "DeepSeek R1 Distill Qwen 32B (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Google Free Models
+  - id: openrouter:google/gemini-2.5-pro-exp-03-25:free
+    label: "Gemini 2.5 Pro Exp (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.0-flash-thinking-exp:free
+    label: "Gemini 2.0 Flash Thinking (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemini-2.0-flash-exp:free
+    label: "Gemini 2.0 Flash Exp (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  - id: openrouter:google/gemma-3-27b-it:free
+    label: "Gemma 3 27B IT (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Nvidia Free Models
+  - id: openrouter:nvidia/llama-3.1-nemotron-ultra-253b-v1:free
+    label: "Llama 3.1 Nemotron Ultra 253B (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+  # Qwen Free Models
+  - id: openrouter:qwen/qwq-32b:free
+    label: "QwQ 32B (Free)"
+    config:
+      temperature: 0.7
+      apiKeyEnvar: OPENROUTER_API_KEY
+
+# Test cases
+tests:
+  - vars:
+      question: "What is the capital of France?"
+    assert:
+      - type: contains
+        value: "Paris"
+
+  - vars:
+      question: "What are the three primary colors?"
+    assert:
+      - type: contains-all
+        value: ["red", "blue", "yellow"]
+
+# Output configuration
+outputPath: results/basic_text_quick_results.json

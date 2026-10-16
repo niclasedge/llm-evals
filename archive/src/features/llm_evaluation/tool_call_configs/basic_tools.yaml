@@ -1,0 +1,59 @@
+tool_call_tests:
+  name: "Basic Tool Call Tests"
+  version: "1.0"
+  description: "Basic single-tool scenarios for testing fundamental tool calling capabilities"
+  
+  scenarios:
+    - name: "basic_calculation"
+      description: "Test basic arithmetic calculation"
+      prompt: "Calculate the square root of 144"
+      expected_tools:
+        - tool_name: "calculator"
+          parameters:
+            operation: "sqrt"
+            values: [144]
+      difficulty: "basic"
+      scoring_weight: 10
+      
+    - name: "weather_lookup"
+      description: "Test weather information retrieval"
+      prompt: "What's the weather like in London?"
+      expected_tools:
+        - tool_name: "weather_api"
+          parameters:
+            location: "London"
+      difficulty: "basic"
+      scoring_weight: 10
+      
+    - name: "text_formatting"
+      description: "Test text formatting operation"
+      prompt: "Convert 'hello world' to uppercase"
+      expected_tools:
+        - tool_name: "text_formatter"
+          parameters:
+            text: "hello world"
+            operation: "uppercase"
+      difficulty: "basic"
+      scoring_weight: 10
+      
+    - name: "unit_conversion"
+      description: "Test unit conversion"
+      prompt: "Convert 50 miles to kilometers"
+      expected_tools:
+        - tool_name: "unit_converter"
+          parameters:
+            value: 50
+            from_unit: "miles"
+            to_unit: "kilometers"
+      difficulty: "basic"
+      scoring_weight: 10
+      
+    - name: "current_time"
+      description: "Test getting current time"
+      prompt: "What time is it now?"
+      expected_tools:
+        - tool_name: "datetime_tool"
+          parameters:
+            operation: "current_time"
+      difficulty: "basic"
+      scoring_weight: 10

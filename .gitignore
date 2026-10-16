@@ -1,0 +1,56 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Node
+node_modules/
+promptfoo/.promptfoo/
+promptfoo/promptfoo.db
+
+# Go
+archive/go-service/bin/
+archive/go-service/server
+archive/go-service/pkg/
+archive/go-service/vendor/
+archive/go-service/logs/
+*.test
+
+# Local state, logs, run output
+*.db
+*.sqlite
+*.sqlite3
+*.log
+*.pid
+logs/
+/db/
+/data/
+output.txt
+test_results/
+endpoint_test_report_*.json
+promptfoo/results/
+
+# Agent / session artifacts
+.claude/
+.serena/
+.bmad-core/
+issue-*-diff.md
+phase*.md
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

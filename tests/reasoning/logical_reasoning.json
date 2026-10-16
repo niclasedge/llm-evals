@@ -1,0 +1,45 @@
+{
+  "category": "reasoning",
+  "name": "Logical Reasoning Tests",
+  "description": "Test logical reasoning capabilities",
+  "tests": [
+    {
+      "name": "Basic Deduction",
+      "prompt": "All birds can fly. Penguins are birds. Can penguins fly?",
+      "expected_output": "No, penguins cannot fly. While the premise states that all birds can fly, this is actually incorrect - penguins are flightless birds.",
+      "difficulty": "easy",
+      "tags": ["deduction", "logic", "facts"],
+      "evaluation_prompt": "Evaluate the response based on logical reasoning and factual accuracy. The model should identify the flaw in the premise and provide the correct conclusion.",
+      "evaluation_criteria": {
+        "logical_accuracy": "Does the response correctly identify the logical flaw?",
+        "factual_knowledge": "Does the response demonstrate knowledge about penguins?",
+        "clarity": "Is the explanation clear and well-structured?"
+      }
+    },
+    {
+      "name": "Syllogism",
+      "prompt": "All mammals are warm-blooded. All whales are mammals. Therefore, what can we conclude about whales?",
+      "expected_output": "Whales are warm-blooded.",
+      "difficulty": "easy",
+      "tags": ["syllogism", "deduction"],
+      "evaluation_prompt": "Assess whether the response correctly follows the logical syllogism and reaches the right conclusion.",
+      "evaluation_criteria": {
+        "logical_structure": "Does the response follow proper logical deduction?",
+        "conclusion_accuracy": "Is the conclusion correct?"
+      }
+    },
+    {
+      "name": "Complex Logic Puzzle",
+      "prompt": "In a house, there are three light switches on the first floor, but only one controls a light bulb on the second floor. You can only go upstairs once. How can you determine which switch controls the bulb?",
+      "expected_output": "Turn the first switch on for a few minutes, then turn it off. Turn the second switch on and leave it on. Leave the third switch off. Go upstairs. If the bulb is on, it's controlled by the second switch. If it's off but warm, it's the first switch. If it's off and cool, it's the third switch.",
+      "difficulty": "hard",
+      "tags": ["puzzle", "creative_thinking", "problem_solving"],
+      "evaluation_prompt": "Evaluate the creativity and correctness of the problem-solving approach. The solution should demonstrate understanding of heat properties of incandescent bulbs.",
+      "evaluation_criteria": {
+        "creativity": "Does the solution show creative thinking?",
+        "correctness": "Is the solution logically sound and practical?",
+        "completeness": "Does the response cover all possible scenarios?"
+      }
+    }
+  ]
+}

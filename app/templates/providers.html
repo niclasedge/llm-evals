@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Providers - LLM Evaluator{% endblock %}
+{% block nav_providers %}btn-active{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">⚙️ LLM Providers</h1>
+
+    <!-- Provider Status -->
+    <div class="card bg-base-200 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title">Provider Health Status</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {% for provider_name, status in health_status.items() %}
+                <div class="stat bg-base-100 rounded-lg">
+                    <div class="stat-figure">
+                        {% if status %}
+                            <div class="badge badge-success">●</div>
+                        {% else %}
+                            <div class="badge badge-error">●</div>
+                        {% endif %}
+                    </div>
+                    <div class="stat-title capitalize">{{ provider_name }}</div>
+                    <div class="stat-value text-sm">
+                        {% if status %}
+                            Online
+                        {% else %}
+                            Offline
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="card-actions justify-end">
+                <button class="btn btn-primary"
+                        hx-get="/partials/provider-health"
+                        hx-target="#provider-health-container">
+                    🔄 Refresh Status
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Providers List -->
+    <div class="card bg-base-200 shadow-xl">
+        <div class="card-body">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="card-title">Configured Providers</h2>
+                <button class="btn btn-secondary"
+                        hx-post="/api/providers/sync"
+                        hx-target="#sync-result">
+                    📥 Sync Providers
+                </button>
+            </div>
+
+            <div id="sync-result"></div>
+
+            <div class="overflow-x-auto">
+                <table class="table table-zebra w-full">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Base URL</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for provider in providers %}
+                        <tr>
+                            <td class="font-medium">{{ provider.name }}</td>
+                            <td>
+                                <span class="badge badge-outline">{{ provider.type }}</span>
+                            </td>
+                            <td class="text-sm opacity-70">{{ provider.base_url }}</td>
+                            <td>
+                                {% if provider.is_active %}
+                                    <span class="badge badge-success">Active</span>
+                                {% else %}
+                                    <span class="badge badge-neutral">Inactive</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="dropdown dropdown-end">
+                                    <div tabindex="0" role="button" class="btn btn-ghost btn-sm">⋮</div>
+                                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                        <li><a href="/api/providers/{{ provider.name }}/models">View Models</a></li>
+                                        <li><a>Test Connection</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% if not providers %}
+                <div class="text-center py-8 opacity-50">
+                    No providers configured. Click "Sync Providers" to load from configuration.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

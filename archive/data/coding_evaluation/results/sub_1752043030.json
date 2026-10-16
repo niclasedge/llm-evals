@@ -1,0 +1,22 @@
+{
+  "submission_id": "sub_1752043030",
+  "score": 0.09921002388000488,
+  "passed_tests": 0,
+  "total_tests": 1,
+  "test_results": [
+    {
+      "test_case_id": "1",
+      "status": "TestStatus.FAILED",
+      "actual_output": "Passed 1/1 tests",
+      "execution_time": 0.007899761199951172,
+      "memory_usage": null,
+      "error_message": null,
+      "passed": false
+    }
+  ],
+  "execution_time": 0.007982015609741211,
+  "memory_usage": null,
+  "error_message": null,
+  "feedback": "\ud83d\udcca 0/1 tests passed\n\n\u274c Failed tests:\n  \u2022 Test 1: Expected 'Passed 1/1 tests', got different output\n\n\u26a1 Great performance! Average execution time: 0.01s",
+  "timestamp": "2025-07-09 06:37:10.233087"
+}

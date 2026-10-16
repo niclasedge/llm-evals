@@ -1,0 +1,27 @@
+{
+  "name": "llm-evals-promptfoo",
+  "version": "1.0.0",
+  "description": "Promptfoo-based LLM evaluation system",
+  "type": "module",
+  "scripts": {
+    "eval": "promptfoo eval",
+    "eval:basic": "promptfoo eval -c configs/basic_text.yaml",
+    "eval:code": "promptfoo eval -c configs/code_generation.yaml",
+    "eval:reasoning": "promptfoo eval -c configs/reasoning.yaml",
+    "eval:all": "pnpm run eval:basic && pnpm run eval:code && pnpm run eval:reasoning",
+    "view": "promptfoo view",
+    "cache:clear": "promptfoo cache clear",
+    "list": "promptfoo list"
+  },
+  "dependencies": {
+    "promptfoo": "^0.118.17"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3"
+    ]
+  }
+}

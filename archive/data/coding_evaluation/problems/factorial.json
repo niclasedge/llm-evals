@@ -1,0 +1,64 @@
+{
+  "id": "factorial",
+  "title": "Factorial Calculation",
+  "description": "Write a function that calculates the factorial of a non-negative integer n. Factorial of n (n!) is the product of all positive integers less than or equal to n.",
+  "difficulty": "easy",
+  "languages": [
+    "python",
+    "javascript",
+    "java"
+  ],
+  "test_cases": [
+    {
+      "id": "1",
+      "input_data": "0",
+      "expected_output": "1",
+      "time_limit": 5.0,
+      "memory_limit": 128,
+      "description": "Factorial of 0 is 1",
+      "hidden": false
+    },
+    {
+      "id": "2",
+      "input_data": "1",
+      "expected_output": "1",
+      "time_limit": 5.0,
+      "memory_limit": 128,
+      "description": "Factorial of 1 is 1",
+      "hidden": false
+    },
+    {
+      "id": "3",
+      "input_data": "5",
+      "expected_output": "120",
+      "time_limit": 5.0,
+      "memory_limit": 128,
+      "description": "Factorial of 5 is 120",
+      "hidden": false
+    },
+    {
+      "id": "4",
+      "input_data": "7",
+      "expected_output": "5040",
+      "time_limit": 5.0,
+      "memory_limit": 128,
+      "description": "Factorial of 7 is 5040",
+      "hidden": false
+    }
+  ],
+  "starter_code": {
+    "python": "def factorial(n):\\n    # Write your solution here\\n    pass\\n\\nif __name__ == '__main__':\\n    import sys\\n    n = int(sys.argv[1]) if len(sys.argv) > 1 else int(input())\\n    print(factorial(n))",
+    "javascript": "function factorial(n) {\\n    // Write your solution here\\n}\\n\\nconst n = parseInt(process.argv[2]) || parseInt(require('readline-sync').question());\\nconsole.log(factorial(n));",
+    "java": "public class Factorial {\\n    public static int factorial(int n) {\\n        // Write your solution here\\n        return 0;\\n    }\\n    \\n    public static void main(String[] args) {\\n        int n = args.length > 0 ? Integer.parseInt(args[0]) : new java.util.Scanner(System.in).nextInt();\\n        System.out.println(factorial(n));\\n    }\\n}"
+  },
+  "solution": {},
+  "tags": [
+    "math",
+    "recursion",
+    "basic"
+  ],
+  "time_limit": 5.0,
+  "memory_limit": 128,
+  "created_at": "2025-07-08T07:37:47.127659",
+  "updated_at": "2025-07-08T07:37:47.127661"
+}
