@@ -177,8 +177,12 @@ func (fw *FileWatcher) addDirectoriesToWatcher(rootDir string) error {
 		}
 
 		if info.IsDir() {
-			// Skip excluded directories
-			if fw.excludeMatcher.Matches(path) || !ShouldWatchDirectory(path) {
+			// Skip excluded directories. The root is always watched, and the
+			// filters see only the path below it: a root that merely lives
+			// under a directory named "tmp" (e.g. /tmp/x on Linux) must not
+			// be excluded as a whole.
+			if rel := fw.relToRoot(path); rel != "." &&
+				(fw.excludeMatcher.Matches(rel) || !ShouldWatchDirectory(rel)) {
 				return filepath.SkipDir
 			}
 
@@ -240,17 +244,29 @@ func (fw *FileWatcher) watchLoop(ctx context.Context) {
 	}
 }
 
+// relToRoot returns path relative to the watch root so that exclude patterns
+// only apply to the part below the root. Falls back to path unchanged.
+func (fw *FileWatcher) relToRoot(path string) string {
+	rel, err := filepath.Rel(fw.config.RootDir, path)
+	if err != nil {
+		return path
+	}
+	return rel
+}
+
 // handleFileEvent processes individual file system events
 func (fw *FileWatcher) handleFileEvent(ctx context.Context, event fsnotify.Event, changes chan<- string) {
 	logger := logging.LogWithContext(ctx, fw.logger.Logger)
 
+	rel := fw.relToRoot(event.Name)
+
 	// Skip if file should be excluded
-	if fw.excludeMatcher.Matches(event.Name) || IsTemporaryFile(event.Name) {
+	if fw.excludeMatcher.Matches(rel) || IsTemporaryFile(event.Name) {
 		return
 	}
 
 	// Skip if file doesn't match watched patterns
-	if !fw.watchMatcher.Matches(event.Name) {
+	if !fw.watchMatcher.Matches(rel) {
 		// Additional check for specific file types
 		if !IsGoSourceFile(event.Name) && !IsGoModFile(event.Name) {
 			return

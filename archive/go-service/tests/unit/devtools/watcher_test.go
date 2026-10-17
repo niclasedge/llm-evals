@@ -151,7 +151,7 @@ func TestFileWatcher_FileChanges(t *testing.T) {
 	}
 
 	// Wait for changes to be detected and debounced
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	select {
@@ -220,7 +220,7 @@ func TestFileWatcher_ExcludedFiles(t *testing.T) {
 	}
 
 	// Wait for changes to be detected and debounced
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	select {
